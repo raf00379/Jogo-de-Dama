@@ -1,0 +1,331 @@
+unit U_config;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  Buttons, ExtCtrls, ImgList, ComCtrls, StdCtrls, OleCtrls, OleCtnrs, MPlayer, MMSystem,
+  XPMan, Mask;
+
+type
+  Tfrmconfig = class(TForm)
+    Panel1: TPanel;
+    SpeedButton3: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    GroupBox1: TGroupBox;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    ImageList1: TImageList;
+    MediaPlayer1: TMediaPlayer;
+    GroupBox2: TGroupBox;
+    Image1: TImage;
+    Image2: TImage;
+    Label1: TLabel;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    Label2: TLabel;
+    GroupBox3: TGroupBox;
+    ComboBox1: TComboBox;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    ComboBox2: TComboBox;
+    Timer1: TTimer;
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
+    procedure CheckBox2Click(Sender: TObject);
+    procedure ComboBox2Change(Sender: TObject);
+    procedure CheckBox1Click(Sender: TObject);
+    procedure ComboBoxChange(Sender: TObject);
+    procedure RadioButton1Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure ProximaMusica(Sender: TObject);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    
+  private
+    { Private declarations }
+  public
+       i,j:integer;
+       dois_jogadores:boolean;
+    { Public declarations }
+  end;
+
+var
+  frmconfig: Tfrmconfig;
+  a,i,j,x,cont_musica,contar_fig:integer;
+  abriu,jogador1,jogador2,AlterouSons,AlterouFundo,AlterouQuadro,AlterouJogador:boolean;
+  arq:textfile;
+
+implementation
+
+uses U_principal, uObterdiretorio;
+
+{$R *.DFM}
+
+procedure Tfrmconfig.SpeedButton1Click(Sender: TObject);
+begin
+ SpeedButton3.Enabled:=true;
+ i:=i+1;
+ image1.Picture.Bitmap:=nil;
+ imagelist1.GetBitmap(i,image1.Picture.Bitmap);
+ if(i=10)then
+   i:=0;
+end;
+
+procedure Tfrmconfig.SpeedButton2Click(Sender: TObject);
+begin
+ SpeedButton3.Enabled:=true;
+ j:=j+1;
+ image2.Picture.Bitmap:=nil;
+ imagelist1.GetBitmap(j,image2.Picture.Bitmap);
+ if(j=10)then
+  j:=0;
+ AlterouQuadro:=true;
+end;
+
+procedure Tfrmconfig.FormActivate(Sender: TObject);
+var  SR:TSearchRec; copia:string[5];
+begin
+ 
+
+ AlterouSons:=false;
+ AlterouFundo:=false;
+ AlterouQuadro:=false;
+ AlterouJogador:=false;
+  combobox1.Clear;
+  combobox2.Clear;
+  if(dois_jogadores)then
+  begin
+     radiobutton2.Checked:=true;
+     radiobutton1.Checked:=false;
+  end
+  else
+  begin
+     radiobutton1.Checked:=true;
+     radiobutton2.Checked:=false;
+  end;
+  SpeedButton5.Flat:=true;
+  SpeedButton5.Font.Color:=clBlack;
+  SpeedButton3.Enabled:=false;
+  i:=0;j:=1;
+  radiobutton1.Checked:=true;
+  image1.Picture.Bitmap:=nil;
+  imagelist1.GetBitmap(i,image1.Picture.Bitmap);
+  image2.Picture.Bitmap:=nil;
+  imagelist1.GetBitmap(j,image2.Picture.Bitmap);
+  x:=0;
+  SpeedButton3.Enabled:=false;
+  cont_musica:=0;
+  contar_fig:=0;
+ // listandos os arquivos da pasta som
+  a := FindFirst(frm_principal.dir_inicial+'\musica\*.*', faAnyFile, SR);
+  while a = 0 do
+  begin
+   if(SR.Attr and faDirectory) <> faDirectory then
+   begin
+    copia:=uppercase(copy(sr.Name,pos('.',sr.Name)+1,length(sr.Name)));
+    if(copia='MP3')or(copia='WAV')or(copia='MID')or(copia='RMI')or(copia='WMA')then
+    begin
+      inc(cont_musica);
+      combobox1.Items.Add(uppercase(sr.Name));
+    end;
+   end;
+    a:=FindNext(SR);
+  end;
+ a := FindFirst(frm_principal.dir_inicial+'\imagens\image\*.*', faAnyFile, SR);
+  while a = 0 do
+  begin
+   if(SR.Attr and faDirectory) <> faDirectory then
+   begin
+    copia:=uppercase(copy(sr.Name,pos('.',sr.Name)+1,length(sr.Name)));
+    if(copia='JPG')or(copia='JPEG')or(copia='BMP')then
+    begin
+      combobox2.Items.Add(uppercase(sr.Name));
+      contar_fig:=contar_fig+1;
+    end;
+   end;
+    a:=FindNext(SR);
+  end;
+  combobox2.ItemIndex:=0;
+  combobox1.ItemIndex:=x;
+end;
+
+procedure Tfrmconfig.SpeedButton3Click(Sender: TObject);
+var
+  x,x1,quad1,quad2:integer;
+  som,fundo,copialinha:string;
+begin
+ x1:=0;
+ assignfile(arq,frm_principal.dir_inicial+'\config.dat');
+ reset(arq);
+ while not eof(arq) do
+  begin
+     readln(arq,copialinha);
+     x1:=x1+1;
+     case x1 of
+        1:fundo:=copy(copialinha,pos(':',copialinha)+1,length(copialinha));
+        2:quad1:=StrToInt(copy(copialinha,pos(':',copialinha)+1,length(copialinha)));
+        3:quad2:=StrToInt(copy(copialinha,pos(':',copialinha)+1,length(copialinha)));
+     end;
+   end;
+ closefile(arq);
+ if AlterouSons then
+  begin
+     If checkbox1.checked = true  then
+       begin
+         som:='0x'+'FFFF'+'ffff';
+         MMSystem.waveOutSetVolume(0,StrToInt(som));
+       end;
+     If checkbox1.Checked= false then
+      begin
+         som:='0x'+'0000'+'0000';
+         MMSystem.waveOutSetVolume(0,StrToInt(som));
+      end;
+     if(checkbox2.Checked)then
+      begin
+        if(combobox1.itemindex<>-1)then
+          begin
+            abriu:=true;
+            x:=combobox1.itemindex;
+         //   ShowMessage(frm_principal.dir_inicial+'\musica\'+combobox1.Text);
+
+            mediaplayer1.FileName:=frm_principal.dir_inicial+'musica\'+combobox1.Text;
+
+            mediaplayer1.Open;
+            mediaplayer1.Play;
+            Timer1.Enabled:=true;
+         end;
+      end;
+    if CheckBox2.Checked = false then
+     begin
+        Combobox1.Enabled:=false;
+        if abriu then
+           Mediaplayer1.Stop;
+        timer1.Enabled:=false;
+     end;
+    end;
+  if alteroufundo then
+   begin
+     fundo:=combobox2.text;
+     frm_Principal.image113.Picture.LoadFromFile(frm_principal.dir_inicial+'\imagens\image\'+combobox2.Text);
+   end;
+  if AlterouJogador then
+  begin
+     if radiobutton1.Checked then
+      begin
+        dois_jogadores:=false;
+        frm_principal.ativar_pecas(sender);
+      end;
+    if radiobutton2.Checked then
+     begin
+        dois_jogadores:=true;
+        frm_principal.ativar_pecas(sender);
+     end;
+  end;
+  if alterouquadro then
+   begin
+      quad1:=i;
+      quad2:=j;
+      frm_principal.carregar_cor_quadros(sender);
+   end;
+  assignfile(arq,frm_principal.dir_inicial+'\config.dat');
+  rewrite(arq);
+  writeln(arq,'fundo:',fundo);
+  writeln(arq,'imgquad1:',quad1);
+  writeln(arq,'imgquad2:',quad2);
+  closefile(arq);
+  SpeedButton3.Enabled:=false;
+  SpeedButton5.Flat:=false;
+  AlterouSons:=false;
+  AlterouFundo:=false;
+  AlterouQuadro:=false;
+  AlterouJogador:=false;
+end;
+
+procedure Tfrmconfig.SpeedButton5Click(Sender: TObject);
+begin
+   frmconfig.Close;
+end;
+
+procedure Tfrmconfig.CheckBox2Click(Sender: TObject);
+begin
+ SpeedButton3.Enabled:=true;
+ if CheckBox2.Checked = true then
+  begin
+   Combobox1.enabled:=true;
+   Combobox1.Color:=clwhite;
+  if(frmObterdiretorio = nil)then
+      frmObterdiretorio:=TfrmObterdiretorio.Create(Application);
+      frmObterdiretorio.ShowModal;
+  end
+ else
+  begin
+    Combobox1.enabled:=false;
+    Combobox1.Color:=clsilver;
+  end;
+ AlterouSons:=true;
+end;
+
+procedure Tfrmconfig.ComboBox2Change(Sender: TObject);
+begin
+ SpeedButton3.Enabled:=true;
+ AlterouFundo:=true;
+end;
+
+procedure Tfrmconfig.CheckBox1Click(Sender: TObject);
+begin
+ SpeedButton3.Enabled:=true;
+ AlterouSons:=true;
+end;
+
+procedure Tfrmconfig.ComboBoxChange(Sender: TObject);
+begin
+   SpeedButton3.Enabled:=true;
+   AlterouSons:=true;
+end;
+
+procedure Tfrmconfig.RadioButton1Click(Sender: TObject);
+begin
+ SpeedButton3.Enabled:=true;
+ AlterouJogador:=true;
+end;
+
+procedure Tfrmconfig.Timer1Timer(Sender: TObject);
+begin
+ if (mediaplayer1.Frames=round(mediaplayer1.Position/10))or (mediaplayer1.Frames-1=round(mediaplayer1.Position/10))or(mediaplayer1.Frames+1=round(mediaplayer1.Position/10))then
+  begin
+    x:=x+1;
+    ProximaMusica(Sender);
+  end;
+end;
+procedure TFrmconfig.ProximaMusica(Sender: TObject);
+begin
+if(checkbox2.Checked)then
+ begin
+     if(x = cont_musica)then
+       x:=0;
+      combobox1.itemindex := x;
+      if(combobox1.Text<>'')then
+        begin
+          mediaplayer1.FileName:=frm_principal.dir_inicial+'\musica\'+combobox1.Text;
+          mediaplayer1.Open;
+          mediaplayer1.Play;
+       end;
+      end;
+ end;
+procedure Tfrmconfig.SpeedButton4Click(Sender: TObject);
+begin
+   frm_principal.FormCreate(sender);
+end;
+
+procedure Tfrmconfig.FormCreate(Sender: TObject);
+begin
+   abriu:=false;
+   Combobox1.enabled:=false;
+   Combobox1.Color:=clsilver;
+end;
+
+end.

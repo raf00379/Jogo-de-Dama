@@ -1,0 +1,24 @@
+program PDama;
+
+uses
+  Forms,
+  U_principal in 'U_principal.pas' {frm_principal},
+  Sobre in 'Sobre.pas' {formSobre},
+  Topicos in 'Topicos.pas' {formTopicos},
+  U_config in 'U_config.pas' {frmconfig},
+  Unit5 in 'Unit5.pas' {Frm_salva_recorde},
+  U_lista in 'U_lista.pas' {Form1};
+
+{$R *.RES}
+
+begin
+  Application.Initialize;
+  Application.Title := 'Dama Beta 1.13';
+  Application.CreateForm(Tfrmconfig, frmconfig);
+  Application.CreateForm(Tfrm_principal, frm_principal);
+  Application.CreateForm(TFrm_salva_recorde, Frm_salva_recorde);
+  Application.CreateForm(TformSobre, formSobre);
+  Application.CreateForm(TformTopicos, formTopicos);
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.

@@ -1,0 +1,3561 @@
+{Nesta versão foi alterado ou acrescentado:
+23/03/2007:
+>> no FormCreate a opção de forçar a mudança de resolução
+   apenas muda quando as cores forem inferiores a 16 bits 800x600,
+   antes tinha que ser 32 bit;
+>> foi colocado um trambique no jogo, quando se faz um recorde e digita:
+   a letra 'd' mais '-' mais "um numero menor que dez" o recorde vai ser subtraido
+   por este numero;
+>> O evento onClick do jogador1 é destruido quando ele move a peça evitando
+   que se mova antes da máquina jogar. Quando a máquina move sua peça os eventos
+   são restaurados >>>> procedure ApagarEventoClick();
+>> O evento de closequery do formulario principal foi definido
+
+26/07/2007 :
+Em construção
+>> Acrescentei uma DLL com algumas figuras que são carregadas na função ArqCarregarDLL();
+
+}
+unit U_principal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls, StdCtrls, Buttons, ComCtrls, MPlayer, MMSystem, OleCtnrs, jpeg,
+  ImgList,typinfo;
+
+type
+  Tfrm_principal = class(TForm)
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    Image6: TImage;
+    Image7: TImage;
+    Image8: TImage;
+    Image9: TImage;
+    Image10: TImage;
+    Image11: TImage;
+    Image12: TImage;
+    Image13: TImage;
+    Image14: TImage;
+    Image15: TImage;
+    Image16: TImage;
+    Image65: TImage;
+    Image66: TImage;
+    Image67: TImage;
+    Image68: TImage;
+    Image69: TImage;
+    Image70: TImage;
+    Image71: TImage;
+    Image72: TImage;
+    Image73: TImage;
+    Image74: TImage;
+    Image75: TImage;
+    Image76: TImage;
+    Image77: TImage;
+    Image78: TImage;
+    Image79: TImage;
+    Image80: TImage;
+    Image81: TImage;
+    Image82: TImage;
+    Image83: TImage;
+    Image84: TImage;
+    Image85: TImage;
+    Image86: TImage;
+    Image87: TImage;
+    Image88: TImage;
+    Image89: TImage;
+    Image90: TImage;
+    Image91: TImage;
+    Image92: TImage;
+    Image93: TImage;
+    Image94: TImage;
+    Image95: TImage;
+    Image96: TImage;
+    Image97: TImage;
+    Image98: TImage;
+    Image99: TImage;
+    Image100: TImage;
+    Shape1: TShape;
+    Image17: TImage;
+    Image18: TImage;
+    Image19: TImage;
+    Image20: TImage;
+    Image21: TImage;
+    Image22: TImage;
+    Image23: TImage;
+    Image24: TImage;
+    Image25: TImage;
+    Image26: TImage;
+    Image27: TImage;
+    Image28: TImage;
+    Image29: TImage;
+    Image30: TImage;
+    Image31: TImage;
+    Image32: TImage;
+    Image33: TImage;
+    Image34: TImage;
+    Image35: TImage;
+    Image36: TImage;
+    Image37: TImage;
+    Image38: TImage;
+    Image39: TImage;
+    Image40: TImage;
+    Image41: TImage;
+    Image42: TImage;
+    Image43: TImage;
+    Image44: TImage;
+    Image45: TImage;
+    Image46: TImage;
+    Image47: TImage;
+    Image48: TImage;
+    Image49: TImage;
+    Image50: TImage;
+    Image51: TImage;
+    Image52: TImage;
+    Image53: TImage;
+    Image54: TImage;
+    Image55: TImage;
+    Image56: TImage;
+    Image57: TImage;
+    Image58: TImage;
+    Image59: TImage;
+    Image60: TImage;
+    Image61: TImage;
+    Image62: TImage;
+    Image63: TImage;
+    Image64: TImage;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    Label3: TLabel;
+    ImageList1: TImageList;
+    Bevel1: TBevel;
+    Bevel2: TBevel;
+    Image101: TImage;
+    Image102: TImage;
+    Image103: TImage;
+    Image104: TImage;
+    Image105: TImage;
+    Image106: TImage;
+    Image107: TImage;
+    Image108: TImage;
+    Image109: TImage;
+    Image110: TImage;
+    Image111: TImage;
+    Image112: TImage;
+    Label2: TLabel;
+    Label19: TLabel;
+    Shape3: TShape;
+    Shape2: TShape;
+    Shape5: TShape;
+    Bevel3: TBevel;
+    Label21: TLabel;
+    Label11: TLabel;
+    Label1: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    Label18: TLabel;
+    Label20: TLabel;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Label28: TLabel;
+    Label29: TLabel;
+    Label30: TLabel;
+    Label31: TLabel;
+    Label32: TLabel;
+    Label33: TLabel;
+    Label34: TLabel;
+    Label35: TLabel;
+    Label36: TLabel;
+    Label37: TLabel;
+    Label38: TLabel;
+    Label39: TLabel;
+    Image113: TImage;
+    Relogio: TTimer;
+
+    procedure FormActivate(Sender: TObject);
+    procedure ImageClick(Sender: TObject);
+    procedure ImgpretoMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure ImgjogadorClick(Sender: TObject);
+    procedure ImgjogadorMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure jog_maquina(sender:Tobject);
+    procedure verificar_assopro(sender:Tobject);
+    procedure verificacao_maquina(sender:Tobject);
+    procedure verificacao_dama_maquina(sender:Tobject);
+    procedure criar_dama(sender:Tobject);
+    procedure criar_dama_maquina(sender:Tobject);
+    procedure jog_comer(sender:Tobject);
+    procedure maq_comer_complentando(Sender:TObject);
+    procedure Delay(MSecs: integer);
+    procedure SpeedButton4Click(Sender: TObject);
+    procedure SpeedButton5Click(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SpeedButton2MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure Dama_Jogando(sender:Tobject);
+    procedure ImgjogmaqClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);//procedure de um segundo jogador
+    procedure analise_recorde(sender:Tobject);
+    procedure SpeedButton6Click(Sender: TObject);
+    procedure carregar_cor_quadros(sender:Tobject);
+    procedure pecas_presas_finalizar(Sender:Tobject);
+    procedure pecas_presas_jogador_finalizar(Sender:Tobject);
+    procedure jogador1_comer(sender:Tobject);
+    procedure dama_jogador1_comer(Sender:Tobject);
+    procedure ativar_pecas(sender:Tobject);
+    procedure fim_de_jogo(Sender:Tobject);
+    procedure apagarEventoClick(op:byte);
+    procedure FormMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure SpeedButtonMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Image113MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    function  InteligenciaDama(Sender: TObject):boolean;
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure RelogioTimer(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    dois_jogadores:boolean;
+    contar_jogadas:integer;
+    r:integer;//contador do relógio
+    dir_inicial:string;
+  //  jogar_nao:boolean;
+    { Public declarations }
+  end;
+
+  function ArqCarregarDLL(tipo:String;nome:String):HBitmap;
+
+const centro=4;
+      VERSAO = 'Dama Beta 1.16';
+//tamanho da peca padrão altura:45 largura:45 pixels
+var
+  frm_principal: Tfrm_principal;
+  Devmode:Tdevmode;
+  cop_peca:string;
+  quadro:array[1..8,1..8] of Timage;
+  quadBranco,quadpreto,peca:array[0..64] of Timage;
+  qual_quadro,quadro_saiu, quadro_saiu_lin,quadro_saiu_col,linha,cap_col,cap_lin,c,contador,dama,num_quadro,quadro_lin,quadro_col,dama_maq,qual_peca,qual_peca_comida,contando:integer;
+  ocupado_dama_maq,ocupado_dama_jog,quadro_ocupado,ocupado_pec_jog,ocupado_pec_maq{,ocupado_quad_preto}:array[1..8,1..8] of boolean;
+  dama_criada,peca_comida,comer_pec_jog:array[1..64] of boolean;
+  pecas:Timage;
+  controle_diagonal:array[1..12]of boolean;
+  peca_clicada,dama_jogou,sobrou,mesma_peca,proteger,dois_jogadores:boolean;
+  quad_saiu_lin,quad_saiu_col,quad_foi_lin,quad_foi_col,peca_movida,q_peca_comida_lin,q_peca_comida_col,num_quadro_lin,num_quadro_col,soma,som:integer;
+  sobrou_peca,peca_comum, sobrou_peca_jog,ContResol:integer;
+  travar,videoAlterou:boolean;
+  peca_jog_assoprada:array[1..36]of bool;
+  res_ant_larg,res_ant_alt:integer;
+  arq:textfile;
+  bitsPorPixel: integer;
+  spdbotao:array[1..6]of TspeedButton;
+implementation
+
+uses Sobre, Topicos,u_config, U_Abrir, Unit5, U_lista, U_recorde;
+{$R *.DFM}
+function TFrm_principal.InteligenciaDama(Sender:Tobject):boolean;
+var jogada_ilegal,passa:bool;contando_dama,cont1,cont2,cont3,cont4,contar_travar1,contar_travar2,y,lin_ant,col_ant,i,j,x,w:integer;
+begin
+    result:=false;
+    contando_dama:=0;
+    contar_travar1:=0;
+    contar_travar2:=0;
+    for i:=37 to 48 do
+    begin
+      if(dama_criada[i])and(peca_comida[i]=false)then
+        contando_dama:=contando_dama+1;
+    end;
+    if(contando_dama>0)then
+    begin
+      repeat
+       repeat
+         jogada_ilegal:=false;
+           repeat
+              passa:=false;
+              repeat
+                repeat
+                   x:=random(49);//sorteio da Dama da máquina
+                   contar_travar2:=contar_travar2+1;
+                   if(contar_travar2>=10000)then
+                       exit;
+                until(peca_comida[x]=false)and(x<>0)and(x>36);
+                if(peca_comida[x]=false)and(dama_criada[x])or(x<=12)then
+                  passa:=true;
+              until(passa);
+              for i:=1 to 8 do
+               for j:=1 to 8 do
+                begin
+                 if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].top+centro)then
+                  begin
+                    lin_ant:=i;
+                    col_ant:=j;
+                  end;
+               end;
+            repeat
+              y:=random(9);//sorteio do quadro a ser lançada a peça
+              w:=random(9);
+              contar_travar1:=contar_travar1+1;
+              if(contar_travar1>=10000)then
+                    exit;
+            until(y<>0)and(w<>0)and(quadro_ocupado[y,w]=false);
+           until(lin_ant-y=w-col_ant)or(lin_ant-y=col_ant-w)or(y-lin_ant=w-col_ant)or(y-lin_ant=col_ant-w);
+          cont1:=0;cont2:=0;cont3:=0;cont4:=0;
+         //condicionar o deslocamento da dama sendo que o deslocamento e a peca escolhida foi randomiza
+           for i:=1 to 8 do
+            for j:=1 to 8 do
+            begin
+               if(i<=lin_ant-y)and(j<=w-col_ant)and(lin_ant>y)and(w>col_ant)then//movimento de baixo para cima pela direita
+                begin
+                   if(ocupado_pec_maq[lin_ant-i,col_ant+j])then
+                     jogada_ilegal:=true;
+                     if(ocupado_pec_jog[lin_ant-i,col_ant+j])then
+                     begin
+                       cont1:=cont1+1;
+                       if(cont1>=2)then
+                        jogada_ilegal:=true;
+                     end;
+                end;
+               if(i<=lin_ant-y)and(j<=col_ant-w)and(lin_ant>y)and(col_ant>w)then//movimento de baixo para cima pela esquerda
+                begin
+                   if(ocupado_pec_maq[lin_ant-i,col_ant-j])then
+                     jogada_ilegal:=true;
+                     if(ocupado_pec_jog[lin_ant-i,col_ant-j])then
+                     begin
+                       cont2:=cont2+1;
+                       if(cont2>=2)then
+                        jogada_ilegal:=true;
+                     end;
+                end;
+               if(i<=y-lin_ant)and(j<=w-col_ant)and(y>lin_ant)and(w>col_ant)then//movimento de cima para baixo pela direita
+                begin
+                    if(ocupado_pec_maq[lin_ant+i,col_ant+j])then
+                     jogada_ilegal:=true;
+                    if(ocupado_pec_jog[lin_ant+i,col_ant+j])then
+                     begin
+                       cont3:=cont3+1;
+                       if(cont3>=2)then
+                        jogada_ilegal:=true;
+                     end;
+                end;
+               if(i<=y-lin_ant)and(j<=col_ant-w)and(y>lin_ant)and(col_ant>w)then//movimento de cima para baixo pela esquerda
+                begin
+                  if(ocupado_pec_maq[lin_ant+i,col_ant-j])then
+                     jogada_ilegal:=true;
+                     if(ocupado_pec_jog[lin_ant+i,col_ant-j])then
+                     begin
+                       cont4:=cont4+1;
+                       if(cont4>=2)then
+                        jogada_ilegal:=true;
+                     end;
+                end;
+            end;
+           until(jogada_ilegal=false)and(quadro_ocupado[y,w]=false);
+           //showmessage(InttoStr(y)+' '+InttoStr(w));
+       until(ocupado_pec_jog[y+1,w+1]=false)and(ocupado_pec_jog[y+1,w-1]=false)and(ocupado_pec_jog[y-1,w+1]=false)and(ocupado_pec_jog[y-1,w-1]=false);
+      ocupado_pec_maq[y,w]:=true;
+      quadro_ocupado[y,w]:=true;
+         for i:=1 to 8 do
+          begin
+           for j:=1 to 8 do
+            begin
+              if(peca[x].Top=quadro[i,j].Top+centro)and(peca[x].Left=quadro[i,j].Left+centro)then
+               begin
+                 quadro_ocupado[i,j]:=false;
+                 ocupado_pec_maq[i,j]:=false;
+               end;
+            end;
+          end;
+          peca[x].top:=quadro[y,w].top+centro;
+          peca[x].left:=quadro[y,w].left+centro;
+          result:=true;
+end;
+
+end;
+procedure Tfrm_principal.ativar_pecas(sender:Tobject);
+var i:integer;
+begin
+if(frmconfig.dois_jogadores)then
+  for i:=1 to 48 do
+     peca[i].enabled:=true;
+if(frmconfig.dois_jogadores=false)then
+begin
+  for i:=1 to 48 do
+   if(i<=12)or(i>36)then
+     peca[i].enabled:=false;
+end;
+end;
+//modificado
+procedure Tfrm_principal.dama_jogador1_comer(Sender:Tobject);
+var contando,cont,i,j,h,y:integer;dama_jogou:boolean;
+begin
+   repeat
+    contando:=contando+1;
+    cont:=0;
+    dama_jogou:=false;
+    //diagonal direita de cima para baixo
+    for i:=1 to 8 do
+      begin
+        for j:=1 to 8 do
+           begin
+                if(quadro[i,j].top+centro=pecas.top)and(quadro[i,j].left+centro=pecas.left)then
+                 begin
+                  if(controle_diagonal[2]=false)then
+                  begin
+                    for y:=1 to 8 do
+                     begin
+                        if(i+y<=8)and(j+y<=8)then
+                          begin
+                            //efetura a comparação de dois quadros sucessivos; se ocupado por peça inimiga
+                            //verifica se há peca da maquina entre os quadros que a dama quer saltar
+                             if(ocupado_pec_jog[i+y,j+y])and(quadro_ocupado[i+y+1,j+y+1])or(ocupado_pec_maq[i+y,j+y])then
+                               begin
+                                  cont:=1;//verifica a jogada ilegal
+                                  //só procederá o deslocamento se cont passar com valor zero
+                               end
+                               else
+                               if(i+y+1<=8)and(j+y+1<=8)and(quadro_ocupado[i+y+1,j+y+1]=false)and(ocupado_pec_jog[i+y,j+y])and(cont=0)then
+                                begin
+                                   delay(1000);
+                                   controle_diagonal[3]:=false;
+                                   controle_diagonal[4]:=false;
+                                   controle_diagonal[1]:=true;
+                                   dama_jogou:=true;
+                                   pecas.top:=quadro[i+y+1,j+y+1].Top+centro;
+                                   pecas.left:=quadro[i+y+1,j+y+1].left+centro;
+                                   ocupado_pec_maq[i+y+1,j+y+1]:=true;
+                                   ocupado_dama_maq[i+y+1,j+y+1]:=true;
+                                   quadro_ocupado[i+y+1,j+y+1]:=true;
+                                   quadro_ocupado[i,j]:=false;
+                                   ocupado_dama_maq[i,j]:=false;
+                                   ocupado_pec_maq[i,j]:=false;
+                                 for h:=13 to 36 do
+                                  begin
+                                    if(peca[h].top=quadro[i+y,j+y].top+centro)and(peca[h].left=quadro[i+y,j+y].left+centro)then
+                                      begin
+                                         peca[h].left:=bevel2.Left+2;
+                                         peca[h].top:=bevel2.top+2;
+                                         peca[h].Enabled:=false;
+                                         quadro_ocupado[i+y,j+y]:=false;
+                                         ocupado_pec_jog[i+y,j+y]:=false;
+                                         peca_comida[h]:=true;
+                                      end;
+                                  end;
+                             end;
+                          end;
+                        end;
+                     end;
+                     if(controle_diagonal[1]=false)then
+                     begin
+                        cont:=0;
+                        for y:=1 to 8 do
+                           begin
+                              //diagonal esquerda de baixo para cima
+                              if(i-y>0)and(j-y>0)then
+                                  begin
+                                       if(ocupado_pec_jog[i-y,j-y])and(quadro_ocupado[i-y-1,j-y-1])or(ocupado_pec_maq[i-y,j-y])then
+                                         begin
+                                              cont:=1;
+                                          end
+                                            else
+                                             if(i-y-1>0)and(j-y-1>0)and(quadro_ocupado[i-y-1,j-y-1]=false)and(ocupado_pec_jog[i-y,j-y])and(cont=0)then
+                                             begin
+                                               delay(1000);
+                                               controle_diagonal[3]:=false;
+                                               controle_diagonal[4]:=false;
+                                               controle_diagonal[2]:=true;
+                                               dama_jogou:=true;
+                                               pecas.top:=quadro[i-y-1,j-y-1].Top+centro;
+                                               pecas.left:=quadro[i-y-1,j-y-1].left+centro;
+                                               ocupado_pec_maq[i-y-1,j-y-1]:=true;//quadros para onde foi a dama da maquina
+                                               ocupado_dama_maq[i-y-1,j-y-1]:=true;
+                                               quadro_ocupado[i-y-1,j-y-1]:=true;
+                                               quadro_ocupado[i,j]:=false; //quadros de onde saiu a dama da maquina
+                                               ocupado_dama_maq[i,j]:=false;
+                                               ocupado_pec_maq[i,j]:=false;
+                                              for h:=13 to 36 do
+                                               begin
+                                                if(peca[h].top=quadro[i-y,j-y].top+centro)and(peca[h].left=quadro[i-y,j-y].left+centro)then
+                                                 begin
+                                                    peca[h].left:=bevel2.left+2;
+                                                   peca[h].top:=bevel2.top+2;
+                                                   peca[h].Enabled:=false;
+                                                   quadro_ocupado[i-y,j-y]:=false;//quadro aonde estava a peca comida
+                                                   ocupado_pec_jog[i-y,j-y]:=false;
+                                                   peca_comida[h]:=true;
+                                                 end;
+                                             end;
+                                         end;
+                                     end;
+                                 end;
+                            end;
+                         end;
+                     end;
+                  end;
+              cont:=0;
+           //diagonal direita de baixo para cima
+          for i:=1 to 8 do
+           begin
+            for j:=1 to 8 do
+              begin
+                 if(quadro[i,j].top+centro=pecas.top)and(quadro[i,j].left+centro=pecas.left)then
+                     begin
+                      if(controle_diagonal[4]=false)then
+                      begin
+                        for y:=1 to 8 do
+                         begin
+                          if(i-y>0)and(j+y<=8)then
+                          begin
+                             if(ocupado_pec_jog[i-y,j+y])and(quadro_ocupado[i-y-1,j+y+1])or(ocupado_pec_maq[i-y,j+y])then
+                               begin
+                                  cont:=1;
+                               end
+                               else
+                               if(i-y-1>0)and(j+y+1<=8)and(quadro_ocupado[i-y-1,j+y+1]=false)and(ocupado_pec_jog[i-y,j+y])and(cont=0)then
+                                begin
+                                  delay(1000);
+                                  controle_diagonal[1]:=false;
+                                  controle_diagonal[2]:=false;
+                                  controle_diagonal[3]:=true;
+                                  dama_jogou:=true;
+                                  pecas.top:=quadro[i-y-1,j+y+1].Top+centro;
+                                  pecas.left:=quadro[i-y-1,j+y+1].left+centro;
+                                  ocupado_pec_maq[i-y-1,j+y+1]:=true;
+                                  ocupado_dama_maq[i-y-1,j+y+1]:=true;
+                                  quadro_ocupado[i-y-1,j+y+1]:=true;
+                                  quadro_ocupado[i,j]:=false;
+                                  ocupado_pec_maq[i,j]:=false;
+                                  ocupado_dama_maq[i,j]:=false;
+                                  for h:=13 to 36 do
+                                  begin
+                                    if(peca[h].top=quadro[i-y,j+y].top+centro)and(peca[h].left=quadro[i-y,j+y].left+centro)then
+                                     begin
+                                        peca[h].left:=bevel2.Left+2;
+                                        peca[h].top:=bevel2.Top+2;
+                                        peca[h].Enabled:=false;
+                                        quadro_ocupado[i-y,j+y]:=false;
+                                        ocupado_pec_jog[i-y,j+y]:=false;
+                                        peca_comida[h]:=true;
+                                     end;
+                                  end;
+                               end;
+                           end;
+                      end;
+                 end;
+              if(controle_diagonal[3]=false)then
+              begin
+                 cont:=0;
+                 //diagonal esquerda de cima para baixo
+              for y:=1 to 8 do
+               begin
+                  if(i+y<=8)and(j-y>0)then
+                     begin
+                       if(ocupado_pec_jog[i+y,j-y])and(quadro_ocupado[i+y+1,j-y-1])or(ocupado_pec_maq[i+y,j-y])then
+                          begin
+                            cont:=1;
+                           end
+                            else
+                                if(i+y+1<=8)and(j-y-1>0)and(quadro_ocupado[i+y+1,j-y-1]=false)and(ocupado_pec_jog[i+y,j-y])and(cont=0)then
+                                begin
+                                  delay(1000);
+                                  controle_diagonal[1]:=false;
+                                  controle_diagonal[2]:=false;
+                                  controle_diagonal[4]:=true;
+                                  dama_jogou:=true;
+                                  pecas.top:=quadro[i+y+1,j-y-1].Top+centro;
+                                  pecas.left:=quadro[i+y+1,j-y-1].left+centro;
+                                  ocupado_pec_maq[i+y+1,j-y-1]:=true;
+                                  ocupado_dama_maq[i+y+1,j-y-1]:=true;
+                                  quadro_ocupado[i+y+1,j-y-1]:=true;
+                                  quadro_ocupado[i,j]:=false;
+                                  ocupado_pec_maq[i,j]:=false;
+                                  ocupado_dama_maq[i,j]:=false;
+                                  for h:=13 to 36 do
+                                  begin
+                                    if(peca[h].top=quadro[i+y,j-y].top+centro)and(peca[h].left=quadro[i+y,j-y].left+centro)then
+                                     begin
+                                        peca[h].left:=bevel2.left+2;
+                                        peca[h].top:=bevel2.top+2;
+                                        peca[h].Enabled:=false;
+                                        quadro_ocupado[i+y,j-y]:=false;
+                                        ocupado_pec_jog[i+y,j-y]:=false;
+                                        peca_comida[h]:=true;
+                                     end;
+                                  end;
+                              end;
+                           end;
+                       end;
+                   end;
+                end;
+             end;
+           end;
+until(dama_jogou=false);
+controle_diagonal[1]:=false;
+controle_diagonal[2]:=false;
+controle_diagonal[3]:=false;
+controle_diagonal[4]:=false;
+end;
+
+procedure Tfrm_principal.jogador1_comer(sender:Tobject);
+var i,j,x:integer;entrou:bool;
+begin
+//procedure para completar as comidas, caso haja a comida de mais uma peça para frente
+repeat
+   entrou:=false;
+  for i:=1 to 8 do
+   begin
+    for j:=1 to 8 do
+     begin
+       if(pecas.Left=quadro[i,j].Left+centro)and(pecas.Top=quadro[i,j].top+centro)then
+        begin
+           //comer mais alguma peça na diagonal direita de cima para baixo
+           if(ocupado_pec_jog[i+1,j+1])and(quadro_ocupado[i+2,j+2]=false)and(i+2<=8)and(j+2<=8)then
+             begin
+                delay(1000);
+                entrou:=true;
+                pecas.left:=quadro[i+2,j+2].Left+centro;
+                pecas.top:=quadro[i+2,j+2].top+centro;
+                quadro_ocupado[i+2,j+2]:=true;
+                ocupado_pec_maq[i+2,j+2]:=true;
+                quadro_ocupado[i,j]:=false;
+                ocupado_pec_maq[i,j]:=false;
+                ocupado_pec_jog[i+1,j+1]:=false;
+                quadro_ocupado[i+1,j+1]:=false;
+             for x:=1 to 48 do
+              begin
+                 if(peca[x].left=quadro[i+1,j+1].left+centro)and(peca[x].top=quadro[i+1,j+1].top+centro)then
+                 begin
+                    peca[x].left:=bevel2.left+2;
+                    peca[x].top:=bevel2.top+2;
+                    peca[x].enabled:=false;
+                    peca_comida[x]:=true;
+                 end;
+              end;
+           end
+           else
+             //comer mais alguma peça na diagonal esquerda de baixo para cima
+           if(ocupado_pec_jog[i+1,j-1])and(quadro_ocupado[i+2,j-2]=false)and(i+2<=8)and(j-2>0)then
+            begin
+                delay(1000);
+                entrou:=true;
+                pecas.left:=quadro[i+2,j-2].Left+centro;
+                pecas.top:=quadro[i+2,j-2].top+centro;
+                quadro_ocupado[i+2,j-2]:=true;
+                ocupado_pec_maq[i+2,j-2]:=true;
+                quadro_ocupado[i,j]:=false;
+                ocupado_pec_maq[i,j]:=false;
+                ocupado_pec_jog[i+1,j-1]:=false;
+                quadro_ocupado[i+1,j-1]:=false;
+             for x:=1 to 48 do
+              begin
+                 if(peca[x].left=quadro[i+1,j-1].left+centro)and(peca[x].top=quadro[i+1,j-1].top+centro)then
+                 begin
+                    peca[x].left:=bevel2.left+2;
+                    peca[x].top:=bevel2.top+2;
+                    peca[x].enabled:=false;
+                    peca_comida[x]:=true;
+                 end;
+              end;
+            end;
+        end;
+     end;
+   end;
+until(entrou=false);
+end;
+
+procedure Tfrm_principal.pecas_presas_jogador_finalizar(Sender:Tobject);
+var i,j,contar,x,resp:integer;
+begin
+       contar:=0;
+       for i:=1 to 8 do
+        begin
+        for j:=1 to 8 do
+         begin
+          //pecas do jogador
+          for x:=13 to 24 do
+           begin
+           if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].top+centro)then
+            begin
+               if(j=1)then
+                begin
+                 if(i-2>0)and(j+2<=8)then
+                  begin
+                      if(ocupado_pec_maq[i-1,j+1])and(ocupado_pec_maq[i-2,j+2])then
+                        contar:=contar+1;
+                 end;
+               if(i-1=8)then
+                   if(ocupado_pec_maq[i-1,j+1])then
+                      contar:=contar+1;
+            end;
+            if(j=8)then
+            begin
+              //novo
+                 if(ocupado_pec_jog[2,8])and(quadro_ocupado[1,7])then
+                     contar:=contar+1;
+              //aqui
+                if(i-2>0)and(j-2>0)then
+                 begin
+                   if(ocupado_pec_maq[i-1,j-1])and(ocupado_pec_maq[i-2,j-2])then
+                     contar:=contar+1;
+                 end;
+                 if(i-1=8)then
+                  if(ocupado_pec_maq[i-1,j-1])then
+                    contar:=contar+1;
+            end;
+         end;
+       end;
+     end;
+   end;
+    if(sobrou_peca_jog=contar)then
+     begin
+       relogio.Enabled:=false;
+       messagebox(application.handle,'Fim de Jogo',PChar(Application.Title),MB_OK+MB_ICONINFORMATION);
+       for i:=1 to 48 do
+         peca[i].Enabled:=false;
+     end;
+end;
+procedure Tfrm_principal.pecas_presas_finalizar(Sender:Tobject);
+var i,j,contar,x,resp:integer;
+begin
+      // jogar_nao:=false;
+       travar:=false;
+       contar:=0;
+       for i:=1 to 8 do
+        begin
+        for j:=1 to 8 do
+         begin
+         //peças da maquina
+          for x:=1 to 12 do
+           begin
+           if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].top+centro)then
+            begin
+               if(j=1)then
+                begin
+                //novo
+                 if(ocupado_pec_maq[1,7])and(quadro_ocupado[2,8])then
+                   contar:=contar+1;
+                //aqui...
+                 if(i+2<=8)and(j+2<=8)then
+                  begin
+                      if(ocupado_pec_jog[i+1,j+1])and(ocupado_pec_jog[i+2,j+2])then
+                        contar:=contar+1;
+                 end;
+               if(i+1=8)then
+                   if(ocupado_pec_jog[i+1,j+1])then
+                      contar:=contar+1;
+            end;
+            if(j=8)then
+            begin
+                if(i+2<=8)and(j-2>0)then
+                 begin
+                   if(ocupado_pec_jog[i+1,j-1])and(ocupado_pec_jog[i+2,j-2])then
+                     contar:=contar+1;
+                 end;
+                 if(i+1=8)then
+                  if(ocupado_pec_jog[i+1,j-1])then
+                    contar:=contar+1;
+            end;
+         end;
+       end;
+     end;
+   end;
+    if(sobrou_peca=contar)then
+     begin
+       travar:=true;
+      // if(frmconfig.dois_jogadores=false)then
+        //   analise_recorde(sender);
+       messagebox(Application.Handle,'Fim de Jogo',Pchar(Application.Title),MB_OK+MB_ICONINFORMATION);
+       for i:=1 to 48 do
+         peca[i].Enabled:=false;
+     end;
+end;
+procedure Tfrm_principal.analise_recorde(sender:Tobject);
+var i,j,resp:integer;linha,copia_pontos:string;
+begin
+   Relogio.Enabled:=false;
+   ShowMessage(IntToStr(r));
+   contar_jogadas:=contar_jogadas+1;
+   i:=0;j:=0;
+   assignfile(arq,dir_inicial+'\recorde.dat');
+   reset(arq);
+    while not eof(arq) do
+     begin
+        readln(arq,linha);
+        if(linha<>'')then
+        begin
+         j:=j+1;//contar o total de registros
+         //copia_pontos:=copy(linha,pos('*',linha)+1,length(linha));
+         copia_pontos:=copy(linha,pos('*',linha)+1,pos(':',linha));
+         if(contar_jogadas<StrToInt(copia_pontos))then
+         begin
+           i:=i+1;//conta os registros comparando com maiores
+         end;
+        end;
+     end;
+     closefile(arq);
+    if(j<5)then
+     begin
+       frm_salva_recorde.showmodal
+     end
+     else
+      if(j-i+1<=5)then
+      begin
+        frm_salva_recorde.showmodal;
+      end;
+    contar_jogadas:=contar_jogadas-1;
+end;
+procedure Tfrm_principal.jog_comer(sender:Tobject);
+var i,j,x:integer;entrou:bool;
+begin
+//procedure para completar as comidas, caso haja a comida de mais uma peça para frente
+repeat
+   entrou:=false;
+  for i:=1 to 8 do
+   begin
+    for j:=1 to 8 do
+     begin
+       if(pecas.Left=quadro[i,j].Left+centro)and(pecas.Top=quadro[i,j].top+centro)then
+        begin
+           //comer mais alguma peça na diagonal direita de baixo para cima
+           if(ocupado_pec_maq[i-1,j+1])and(quadro_ocupado[i-2,j+2]=false)and(i-2>0)and(j+2<=8)then
+             begin
+                delay(1000);
+                entrou:=true;
+                contar_jogadas:=contar_jogadas+1;
+                pecas.left:=quadro[i-2,j+2].Left+centro;
+                pecas.top:=quadro[i-2,j+2].top+centro;
+                quadro_ocupado[i-2,j+2]:=true;
+                ocupado_pec_jog[i-2,j+2]:=true;
+                quadro_ocupado[i,j]:=false;
+                ocupado_pec_jog[i,j]:=false;
+                ocupado_pec_maq[i-1,j+1]:=false;
+                quadro_ocupado[i-1,j+1]:=false;
+             for x:=1 to 48 do
+              begin
+                 if(peca[x].left=quadro[i-1,j+1].left+centro)and(peca[x].top=quadro[i-1,j+1].top+centro)then
+                 begin
+                    peca[x].left:=bevel1.Left+2;
+                    peca[x].top:=bevel1.top+2;
+                    peca[x].enabled:=false;
+                    peca_comida[x]:=true;
+                 end;
+              end;
+           end
+           else
+             //comer mais alguma peça na diagonal esquerda de baixo para cima
+           if(ocupado_pec_maq[i-1,j-1])and(quadro_ocupado[i-2,j-2]=false)and(i-2>0)and(j-2>0)then
+            begin
+                delay(1000);
+                entrou:=true;
+                contar_jogadas:=contar_jogadas+1;
+                pecas.left:=quadro[i-2,j-2].Left+centro;
+                pecas.top:=quadro[i-2,j-2].top+centro;
+                quadro_ocupado[i-2,j-2]:=true;
+                ocupado_pec_jog[i-2,j-2]:=true;
+                quadro_ocupado[i,j]:=false;
+                ocupado_pec_jog[i,j]:=false;
+                ocupado_pec_maq[i-1,j-1]:=false;
+                quadro_ocupado[i-1,j-1]:=false;
+             for x:=1 to 48 do
+              begin
+                 if(peca[x].left=quadro[i-1,j-1].left+centro)and(peca[x].top=quadro[i-1,j-1].top+centro)then
+                 begin
+                    peca[x].left:=bevel1.Left+2;
+                    peca[x].top:=bevel1.top+2;
+                    peca[x].enabled:=false;
+                    peca_comida[x]:=true;
+                    break;
+                 end;
+              end;
+            end;
+        end;
+     end;
+   end;
+until(entrou=false);
+end;
+procedure Tfrm_principal.criar_dama(sender:Tobject);
+var i,j:integer;
+begin
+   for j:=1 to 8 do
+   begin
+    if(quadro[1,j].left+centro=pecas.Left)and(quadro[1,j].top+centro=pecas.top)then
+     begin
+       dama:=dama+1;
+      if(dama<=12)then
+       begin
+        peca[24+dama].Visible:=true;
+        peca[24+dama].left:=pecas.left;
+        peca[24+dama].top:=pecas.top;
+        peca[24+dama].Transparent:=true;
+        peca[24+dama].Enabled:=true;
+        ocupado_pec_jog[1,j]:=true;
+        ocupado_dama_jog[1,j]:=true;
+        quadro_ocupado[1,j]:=true;
+        pecas.top:=0;
+        pecas.left:=0;
+        pecas.visible:=not visible;
+        pecas.Enabled:=false;
+       end;
+    end;
+  end;
+end;
+procedure Tfrm_principal.criar_dama_maquina(sender:Tobject);
+var j,x:integer;
+begin
+  for j:=1 to 8 do
+   begin
+    for x:=1 to 12 do
+     begin
+      if(quadro[8,j].left+centro=peca[x].Left)and(quadro[8,j].top+centro=peca[x].top)then
+       begin
+         dama_maq:=dama_maq+1;
+         if(dama_maq<=12)then
+          begin
+            peca[36+dama_maq].Visible:=true;
+            peca[36+dama_maq].left:=peca[x].left;
+            peca[36+dama_maq].top:=peca[x].top;
+            peca[36+dama_maq].Transparent:=true;
+            peca_comida[x]:=true;
+            dama_criada[36+dama_maq]:=true;
+            ocupado_dama_maq[8,j]:=true;
+            ocupado_pec_maq[8,j]:=true;
+            quadro_ocupado[8,j]:=true;
+            peca[x].top:=0;
+            peca[x].left:=0;
+            peca[x].visible:=not visible;
+            peca[x].Enabled:=false;
+            break;
+          end;
+       end;
+    end;
+ end;
+end;
+procedure Tfrm_principal.verificacao_maquina(sender:Tobject);
+var x,i,y,j,d,num:integer;
+jogou,passou1:boolean;
+begin
+d:=0;jogou:=false;c:=0;
+passou1:=false;
+contador:=0;
+proteger:=false;
+ //verificação das peças que podem ser comidas pela maquina
+ //nivel de inteligencia da maquina, analisando as provaveis jogadas...
+ for i:=1 to 8 do
+   for j:=1 to 8 do
+     begin
+        c:=c+1;
+        for x:=1 to 12 do
+         begin
+           if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].top+centro)then
+             begin
+                if(quadro_ocupado[i+1,j+1]=false)and(ocupado_pec_jog[i+2,j+2]=false)and(quadro_ocupado[i,j+2])and(i+1<=8)and(j+1<=8)then
+                begin
+                    proteger:=true;
+                    quad_saiu_lin:=i;
+                    quad_saiu_col:=j;
+                    peca_movida:=x;
+                    quad_foi_lin:=i+1;
+                    quad_foi_col:=j+1;
+                end;
+                if(ocupado_pec_jog[i+2,j]=false)and(ocupado_pec_jog[i+2,j+2]=false)and(quadro_ocupado[i+1,j+1]=false)and(i+1<=8)and(j+1<=8)then
+                  begin
+                    proteger:=true;
+                    quad_saiu_lin:=i;
+                    quad_saiu_col:=j;
+                    peca_movida:=x;
+                    quad_foi_lin:=i+1;
+                    quad_foi_col:=j+1;
+                  end;
+                if(ocupado_pec_jog[i+1,j+1])then
+                begin
+                   if(quadro_ocupado[i+2,j+2]=false)and(i+2<=8)and(j+2<=8)then
+                    begin
+                      passou1:=true;
+                      sobrou:=true;
+                      quadro_saiu_lin:=i;
+                      quadro_saiu_col:=j;
+                      qual_peca:=x;
+                      quadro_lin:=i+2;
+                      quadro_col:=j+2;
+                      q_peca_comida_lin:=i+1;
+                      q_peca_comida_col:=j+1;
+                      comer_pec_jog[d]:=true;
+                      contador:=contador+1;
+                   end;
+                end;
+                if(quadro_ocupado[i+1,j-1]=false)and(ocupado_pec_jog[i+2,j-2]=false)and(quadro_ocupado[i,j-2])and(i+1<=8)and(j-1>0)then
+                begin
+                    proteger:=true;
+                    quad_saiu_lin:=i;
+                    quad_saiu_col:=j;
+                    peca_movida:=x;
+                    quad_foi_lin:=i+1;
+                    quad_foi_col:=j-1;
+                end;
+                if(ocupado_pec_jog[i+2,j]=false)and(ocupado_pec_jog[i+2,j-2]=false)and(quadro_ocupado[i+1,j-1]=false)and(i+1<=8)and(j-1>0)then
+                  begin
+                    proteger:=true;
+                    quad_saiu_lin:=i;
+                    quad_saiu_col:=j;
+                    peca_movida:=x;
+                    quad_foi_lin:=i+1;
+                    quad_foi_col:=j-1;
+                  end;
+                if(ocupado_pec_jog[i+1,j-1])then
+                begin
+                   if(quadro_ocupado[i+2,j-2]=false)and(i+2<=8)and(j-2>0)then
+                    begin
+                      if(passou1=false)then
+                      begin
+                         sobrou:=true;
+                      end;
+                       quadro_saiu_lin:=i;
+                       quadro_saiu_col:=j;
+                       qual_peca:=x;
+                       quadro_lin:=i+2;
+                       quadro_col:=j-2;
+                       q_peca_comida_lin:=i+1;
+                       q_peca_comida_col:=j-1;
+                       comer_pec_jog[d]:=true;
+                       contador:=contador+1;
+                    end;
+               end;
+           end;
+        end;
+   end;
+   c:=0;
+   //prioridade em fazer dama...
+   for i:=6 to 8 do
+   begin
+     for j:=1 to 8 do
+      begin
+         for x:=1 to 12 do
+          begin
+             if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].top+centro)then
+             begin
+                if(i=6)then
+                 begin
+                    if(ocupado_pec_jog[i+2,j+2]=false)and(ocupado_pec_jog[i+2,j]=false)and(quadro_ocupado[i+1,j+1]=false)and(i+1<=8)and(j+1<=8)then
+                    begin
+                      proteger:=true;
+                     quad_saiu_lin:=i;
+                     quad_saiu_col:=j;
+                     peca_movida:=x;
+                     quad_foi_lin:=i+1;
+                     quad_foi_col:=j+1;
+                    end;
+                    if(ocupado_pec_jog[i+2,j-2]=false)and(ocupado_pec_jog[i+2,j]=false)and(quadro_ocupado[i+1,j-1]=false)and(i+1<=8)and(j-1>0)then
+                    begin
+                       proteger:=true;
+                     quad_saiu_lin:=i;
+                     quad_saiu_col:=j;
+                     peca_movida:=x;
+                     quad_foi_lin:=i+1;
+                     quad_foi_col:=j-1;
+                    end;
+                 end;
+                if(i=7)then
+                 begin
+                   if(quadro_ocupado[i+1,j+1]=false)then
+                   begin
+                      proteger:=true;
+                     quad_saiu_lin:=i;
+                     quad_saiu_col:=j;
+                     peca_movida:=x;
+                     quad_foi_lin:=i+1;
+                     quad_foi_col:=j+1;
+                   end;
+                   if(quadro_ocupado[i+1,j-1]=false)then
+                   begin
+                      proteger:=true;
+                     quad_saiu_lin:=i;
+                     quad_saiu_col:=j;
+                     peca_movida:=x;
+                     quad_foi_lin:=i+1;
+                     quad_foi_col:=j-1;
+                   end;
+
+                 end;
+             end;
+          end;
+      end;
+     end;
+
+end;
+
+procedure Tfrm_principal.verificacao_dama_maquina(sender:Tobject);
+var i,j,w,h,x,cont,y,lin_ant,col_ant,dama_valida:integer;jogada_ilegal1,jogada_ilegal2,jogada_ilegal3,jogada_ilegal4:bool;
+begin
+//chamar aqui a procedure de inteligência da Dama da máquina...se existir
+  x:=0;contando:=0;
+  dama_valida:=0;
+  //leitura das jogadas prováveis da DAMA
+  controle_diagonal[5]:=false;
+  controle_diagonal[6]:=false;
+  controle_diagonal[7]:=false;
+  controle_diagonal[8]:=false;
+  jogada_ilegal1:=false;
+  jogada_ilegal2:=false;
+  jogada_ilegal3:=false;
+  jogada_ilegal4:=false;
+for i:= 1 to 8 do
+ for j:=1 to 8 do
+  begin
+    for x:=37 to 48 do
+     begin
+       if(peca[x].left=quadro[i,j].Left+centro)and(peca[x].Top=quadro[i,j].top+centro)then
+       begin
+          for y:=1 to 8 do
+           begin
+             if(i-y-1>0)and(j+y+1<=8)then
+              begin
+               if(ocupado_pec_maq[i-y,j+y])and(quadro_ocupado[i-y-1,j+y+1])or(ocupado_pec_maq[i-y,j+y])then
+                 jogada_ilegal1:=true
+               else
+               if(ocupado_pec_jog[i-y,j+y])and(quadro_ocupado[i-y-1,j+y+1]=false)and(jogada_ilegal1=false)then
+                dama_valida:=x;
+             end;
+             if(i-y-1>0)and(j-y-1>0)then
+             begin
+                 if(ocupado_pec_maq[i-y,j-y])and(quadro_ocupado[i-y-1,j-y-1])or(ocupado_pec_maq[i-y,j-y])then
+                 jogada_ilegal2:=true
+               else
+               if(ocupado_pec_jog[i-y,j-y])and(quadro_ocupado[i-y-1,j-y-1]=false)and(jogada_ilegal2=false)then
+                dama_valida:=x;
+             end;
+             if(i+y+1<=8)and(j+y+1<=8)then
+             begin
+                 if(ocupado_pec_maq[i+y,j+y])and(quadro_ocupado[i+y+1,j+y+1])or(ocupado_pec_maq[i+y,j+y])then
+                 jogada_ilegal3:=true
+               else
+               if(ocupado_pec_jog[i+y,j+y])and(quadro_ocupado[i+y+1,j+y+1]=false)and(jogada_ilegal3=false)then
+                dama_valida:=x;
+             end;
+             if(i+y+1<=8)and(j-y-1>0)then
+             begin
+                 if(ocupado_pec_maq[i+y,j-y])and(quadro_ocupado[i+y+1,j-y-1])or(ocupado_pec_maq[i+y,j-y])then
+                 jogada_ilegal4:=true
+               else
+               if(ocupado_pec_jog[i+y,j-y])and(quadro_ocupado[i+y+1,j-y-1]=false)and(jogada_ilegal4=false)then
+                dama_valida:=x;
+             end;
+           end;
+       end;
+     end;
+  end;
+if(dama_valida<>0)then
+if(dama_criada[dama_valida])then
+  repeat
+    contando:=contando+1;
+    cont:=0;
+    dama_jogou:=false;
+    //diagonal direita de cima para baixo
+    for i:=1 to 8 do
+      begin
+        for j:=1 to 8 do
+           begin
+                if(quadro[i,j].top+centro=peca[dama_valida].top)and(quadro[i,j].left+centro=peca[dama_valida].left)then
+                 begin
+                  //diagonal 1
+                  if(controle_diagonal[6]=false)then
+                  begin
+                    for y:=1 to 8 do
+                     begin
+                        if(i+y<=8)and(j+y<=8)then
+                          begin
+                            //efetura a comparação de dois quadros sucessivos; se ocupado por peça inimiga
+                            //verifica se há peca da maquina entre os quadros que a dama quer saltar
+                             if(ocupado_pec_jog[i+y,j+y])and(quadro_ocupado[i+y+1,j+y+1])or(ocupado_pec_maq[i+y,j+y])then
+                               begin
+                                  cont:=1;//verifica a jogada ilegal
+                                  //só procederá o deslocamento se cont passar com valor zero
+                               end
+                               else
+                               if(i+y+1<=8)and(j+y+1<=8)and(quadro_ocupado[i+y+1,j+y+1]=false)and(ocupado_pec_jog[i+y,j+y])and(cont=0)then
+                                begin
+                                   delay(1000);
+                                   controle_diagonal[5]:=true;
+                                   controle_diagonal[7]:=false;
+                                   controle_diagonal[8]:=false;
+                                   dama_jogou:=true;
+                                   peca[dama_valida].top:=quadro[i+y+1,j+y+1].Top+centro;
+                                   peca[dama_valida].left:=quadro[i+y+1,j+y+1].left+centro;
+                                   ocupado_pec_maq[i+y+1,j+y+1]:=true;
+                                   ocupado_dama_maq[i+y+1,j+y+1]:=true;
+                                   quadro_ocupado[i+y+1,j+y+1]:=true;
+                                   quadro_ocupado[i,j]:=false;
+                                   ocupado_dama_maq[i,j]:=false;
+                                   ocupado_pec_maq[i,j]:=false;
+                                 for h:=13 to 36 do
+                                  begin
+                                    if(peca[h].top=quadro[i+y,j+y].top+centro)and(peca[h].left=quadro[i+y,j+y].left+centro)then
+                                      begin
+                                         peca[h].left:=bevel2.Left+2;
+                                         peca[h].top:=bevel2.top+2;
+                                         peca[h].Enabled:=false;
+                                         quadro_ocupado[i+y,j+y]:=false;
+                                         ocupado_pec_jog[i+y,j+y]:=false;
+                                         break;
+                                      end;
+                                  end;
+                                  continue;
+                             end;
+                          end;
+                        end;
+                     end;
+                     //diagonal 2
+                     if(controle_diagonal[5]=false)then
+                     begin
+                        cont:=0;
+                        for y:=1 to 8 do
+                           begin
+                              //diagonal esquerda de baixo para cima
+                              if(i-y>0)and(j-y>0)then
+                                  begin
+                                       if(ocupado_pec_jog[i-y,j-y])and(quadro_ocupado[i-y-1,j-y-1])or(ocupado_pec_maq[i-y,j-y])then
+                                         begin
+                                              cont:=1;
+                                          end
+                                            else
+                                             if(i-y-1>0)and(j-y-1>0)and(quadro_ocupado[i-y-1,j-y-1]=false)and(ocupado_pec_jog[i-y,j-y])and(cont=0)then
+                                             begin
+                                               delay(1000);
+                                               controle_diagonal[6]:=true;
+                                               controle_diagonal[7]:=false;
+                                               controle_diagonal[8]:=false;
+                                               dama_jogou:=true;
+                                               peca[dama_valida].top:=quadro[i-y-1,j-y-1].Top+centro;
+                                               peca[dama_valida].left:=quadro[i-y-1,j-y-1].left+centro;
+                                               ocupado_pec_maq[i-y-1,j-y-1]:=true;//quadros para onde foi a dama da maquina
+                                               ocupado_dama_maq[i-y-1,j-y-1]:=true;
+                                               quadro_ocupado[i-y-1,j-y-1]:=true;
+                                               quadro_ocupado[i,j]:=false; //quadros de onde saiu a dama da maquina
+                                               ocupado_dama_maq[i,j]:=false;
+                                               ocupado_pec_maq[i,j]:=false;
+                                              for h:=13 to 36 do
+                                               begin
+                                                if(peca[h].top=quadro[i-y,j-y].top+centro)and(peca[h].left=quadro[i-y,j-y].left+centro)then
+                                                 begin
+                                                    peca[h].left:=bevel2.Left+2;
+                                                   peca[h].top:=bevel2.top+2;
+                                                   peca[h].Enabled:=false;
+                                                   quadro_ocupado[i-y,j-y]:=false;//quadro aonde estava a peca comida
+                                                   ocupado_pec_jog[i-y,j-y]:=false;
+                                                   break;
+                                                 end;
+                                             end;
+                                             continue;
+                                         end;
+                                     end;
+                                 end;
+                            end;
+                         end;
+                     end;
+                  end;
+              cont:=0;
+           //diagonal 3
+           //diagonal direita de baixo para cima
+          for i:=1 to 8 do
+           begin
+            for j:=1 to 8 do
+              begin
+                 if(quadro[i,j].top+centro=peca[dama_valida].top)and(quadro[i,j].left+centro=peca[dama_valida].left)then
+                     begin
+                      if(controle_diagonal[8]=false)then
+                      begin
+                        for y:=1 to 8 do
+                         begin
+                          if(i-y>0)and(j+y<=8)then
+                          begin
+
+                             if(ocupado_pec_jog[i-y,j+y])and(quadro_ocupado[i-y-1,j+y+1])or(ocupado_pec_maq[i-y,j+y])then
+                               begin
+                                  cont:=1;
+                               end
+                               else
+                               if(i-y-1>0)and(j+y+1<=8)and(quadro_ocupado[i-y-1,j+y+1]=false)and(ocupado_pec_jog[i-y,j+y])and(cont=0)then
+                                begin
+                                  delay(1000);
+                                  controle_diagonal[5]:=false;
+                                   controle_diagonal[6]:=false;
+                                   controle_diagonal[7]:=true;
+                                  dama_jogou:=true;
+                                  peca[dama_valida].top:=quadro[i-y-1,j+y+1].Top+centro;
+                                  peca[dama_valida].left:=quadro[i-y-1,j+y+1].left+centro;
+                                  ocupado_pec_maq[i-y-1,j+y+1]:=true;
+                                  ocupado_dama_maq[i-y-1,j+y+1]:=true;
+                                  quadro_ocupado[i-y-1,j+y+1]:=true;
+                                  quadro_ocupado[i,j]:=false;
+                                  ocupado_pec_maq[i,j]:=false;
+                                  ocupado_dama_maq[i,j]:=false;
+                                  for h:=13 to 36 do
+                                  begin
+                                    if(peca[h].top=quadro[i-y,j+y].top+centro)and(peca[h].left=quadro[i-y,j+y].left+centro)then
+                                     begin
+                                        peca[h].left:=bevel2.Left+2;
+                                        peca[h].top:=bevel2.top+2;
+                                        peca[h].Enabled:=false;
+                                        quadro_ocupado[i-y,j+y]:=false;
+                                        ocupado_pec_jog[i-y,j+y]:=false;
+                                        break;
+                                     end;
+                                  end;
+                                  continue;
+                               end;
+                           end;
+                      end;
+                 end;
+              //diagonal4
+              if(controle_diagonal[7]=false)then
+              begin
+                 cont:=0;
+                 //diagonal esquerda de cima para baixo
+              for y:=1 to 8 do
+               begin
+                  if(i+y<=8)and(j-y>0)then
+                     begin
+                       if(ocupado_pec_jog[i+y,j-y])and(quadro_ocupado[i+y+1,j-y-1])or(ocupado_pec_maq[i+y,j-y])then
+                          begin
+                            cont:=1;
+                           end
+                            else
+                                if(i+y+1<=8)and(j-y-1>0)and(quadro_ocupado[i+y+1,j-y-1]=false)and(ocupado_pec_jog[i+y,j-y])and(cont=0)then
+                                begin
+                                  delay(1000);
+                                  controle_diagonal[5]:=false;
+                                   controle_diagonal[7]:=false;
+                                   controle_diagonal[8]:=true;
+                                  dama_jogou:=true;
+                                  peca[dama_valida].top:=quadro[i+y+1,j-y-1].Top+centro;
+                                  peca[dama_valida].left:=quadro[i+y+1,j-y-1].left+centro;
+                                  ocupado_pec_maq[i+y+1,j-y-1]:=true;
+                                  ocupado_dama_maq[i+y+1,j-y-1]:=true;
+                                  quadro_ocupado[i+y+1,j-y-1]:=true;
+                                  quadro_ocupado[i,j]:=false;
+                                  ocupado_pec_maq[i,j]:=false;
+                                  ocupado_dama_maq[i,j]:=false;
+                                  for h:=13 to 36 do
+                                  begin
+                                    if(peca[h].top=quadro[i+y,j-y].top+centro)and(peca[h].left=quadro[i+y,j-y].left+centro)then
+                                     begin
+                                        peca[h].left:=bevel2.Left+2;
+                                        peca[h].top:=bevel2.top+2;
+                                        peca[h].Enabled:=false;
+                                        quadro_ocupado[i+y,j-y]:=false;
+                                        ocupado_pec_jog[i+y,j-y]:=false;
+                                        break;
+                                     end;
+                                  end;
+                                continue;
+                              end;
+                           end;
+                       end;
+                   end;
+                end;
+             end;
+           end;
+until(dama_jogou=false);
+if(contando>1)then
+dama_jogou:=true;
+controle_diagonal[5]:=false;
+controle_diagonal[6]:=false;
+controle_diagonal[7]:=false;
+controle_diagonal[8]:=false;
+end;
+
+procedure Tfrm_principal.jog_maquina(sender:Tobject);
+var cnt,lin_ant,col_ant,num_lin,num_col,x,i,y,j,w,contar_jogada,col_post,lin_post,cont1,cont2,cont3,cont4:integer;
+jogou,jogada_ilegal,passa:bool;contar,contar_travar1,contar_travar2:integer;
+begin
+apagarEventoClick(0);
+peca_comum:=0;
+dama_jogou:=false;sobrou_peca:=0;sobrou_peca_jog:=0;
+contar_travar1:=0;
+contar_travar2:=0;
+//quantidade de peças comums da maquinas sem contar as damas
+for i:=1 to 8 do
+ for j:=1 to 8 do
+  begin
+   for x:=1 to 12 do
+    if(peca[x].Left=quadro[i,j].Left+centro)and(peca[x].Top=quadro[i,j].Top+centro)then
+      peca_comum:=peca_comum+1;
+  end;
+  for i:=1 to 8 do
+  begin
+    for j:=1 to 8 do
+     begin
+       for x:=1 to 48 do
+        begin
+          if(x<=12)or(x>36)then
+          if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].Top+centro)then
+           begin
+              sobrou_peca:=sobrou_peca+1;
+           end;
+       end;
+     end;
+  end;
+  pecas_presas_finalizar(Sender);
+  if(sobrou_peca=0)then
+   begin
+     if(frmconfig.dois_jogadores=false)then
+          analise_recorde(sender);
+     for i:=1 to 48 do
+     begin
+        peca[i].Enabled:=false;
+     end;
+     exit;
+   end;
+   sobrou_peca:=0;
+ for i:=1 to 8 do
+  begin
+    for j:=1 to 8 do
+     begin
+       for x:=1 to 36 do
+        begin
+          if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].Top+centro)then
+          begin
+           if(x>12)and(x<=36)then
+              sobrou_peca_jog:=sobrou_peca_jog+1;
+          end;
+       end;
+     end;
+  end;
+  if(sobrou_peca_jog=0)then
+   begin
+     relogio.Enabled:=false;
+     messagebox(application.handle,'Fim de Jogo',PChar(Application.Title),MB_OK+MB_ICONINFORMATION);
+     exit;
+   end;
+  pecas_presas_jogador_finalizar(Sender);
+  sobrou_peca_jog:=0;
+  if(frmconfig.dois_jogadores=false)then
+  begin
+   delay(700);
+   randomize;
+    verificacao_dama_maquina(sender);
+    verificacao_maquina(sender);
+    //prioridade da peça da maquina em comer a peça do jogador
+ if(travar=false)then
+  begin
+  if(dama_jogou=false)then
+   begin
+      jogou:=false;
+      if(contador>0)then
+         begin
+           jogou:=true;
+           peca[qual_peca].left:=quadro[quadro_lin,quadro_col].left+centro;
+           peca[qual_peca].top:=quadro[quadro_lin,quadro_col].top+centro;
+           quadro_ocupado[quadro_lin,quadro_col]:=true;
+           quadro_ocupado[quadro_saiu_lin,quadro_saiu_col]:=false;
+           ocupado_pec_maq[quadro_saiu_lin,quadro_saiu_col]:=false;
+           ocupado_pec_maq[quadro_lin,quadro_col]:=true;
+           quadro_ocupado[q_peca_comida_lin,q_peca_comida_col]:=false;
+           ocupado_pec_jog[q_peca_comida_lin,q_peca_comida_col]:=false;
+           for j:=13 to 36 do
+            begin
+             if(peca[j].left=quadro[q_peca_comida_lin,q_peca_comida_col].left+centro)and(peca[j].top=quadro[q_peca_comida_lin,q_peca_comida_lin].top+centro)then
+              begin
+                  peca[j].left:=bevel2.Left+2;
+                  peca[j].top:=bevel2.top+2;
+                  peca[j].Enabled:=false;
+                  break;
+              end;
+            end;
+            maq_comer_complentando(Sender);
+       end
+         else
+           if(proteger)then
+            begin
+              jogou:=true;
+              peca[peca_movida].left:=quadro[quad_foi_lin,quad_foi_col].left+centro;
+              peca[peca_movida].top:=quadro[quad_foi_lin,quad_foi_col].top+centro;
+              quadro_ocupado[quad_saiu_lin,quad_saiu_col]:=false;
+              ocupado_pec_maq[quad_saiu_lin,quad_saiu_col]:=false;
+              quadro_ocupado[quad_foi_lin,quad_foi_col]:=true;
+              ocupado_pec_maq[quad_foi_lin,quad_foi_col]:=true;
+            end;
+
+       if(jogou=false)then
+        begin
+          if InteligenciaDama(sender)=false then
+           begin
+             cnt:=0;
+            repeat
+             jogada_ilegal:=false;
+             repeat
+              passa:=false;
+              repeat
+                 repeat
+                   x:=random(48);//sorteio da Dama da máquina
+                   cnt:=cnt+1;
+                   if(cnt>10000)then
+                    begin
+                      fim_de_jogo(sender);
+                      exit;
+                    end;
+                 until(peca_comida[x]=false)and(x>0)and(x<=12)or(x>36);
+                if(peca_comida[x]=false)and(dama_criada[x])or(x<=12)then
+                passa:=true;
+              until(passa);
+              for i:=1 to 8 do
+               for j:=1 to 8 do
+                begin
+                 if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].top+centro)then
+                  begin
+                    lin_ant:=i;
+                    col_ant:=j;
+                  end;
+               end;
+            repeat
+              y:=random(9);//sorteio do quadro a ser lançada a peça
+              w:=random(9);
+              contar_travar1:=contar_travar1+1;
+              if(contar_travar1>=10000)then
+                  begin
+                    fim_de_jogo(Sender);
+                    exit;
+                  end;
+            until(y<>0)and(w<>0)and(quadro_ocupado[y,w]=false);
+           until(lin_ant-y=w-col_ant)or(lin_ant-y=col_ant-w)or(y-lin_ant=w-col_ant)or(y-lin_ant=col_ant-w);
+       if(x>36)then
+        begin
+          cont1:=0;cont2:=0;cont3:=0;cont4:=0;
+         //condicionar o deslocamento da dama sendo que o deslocamento e a peca escolhida foi randomiza
+           for i:=1 to 8 do
+            for j:=1 to 8 do
+            begin
+               if(i<=lin_ant-y)and(j<=w-col_ant)and(lin_ant>y)and(w>col_ant)then//movimento de baixo para cima pela direita
+                begin
+                   if(ocupado_pec_maq[lin_ant-i,col_ant+j])then
+                     jogada_ilegal:=true;
+                     if(ocupado_pec_jog[lin_ant-i,col_ant+j])then
+                     begin
+                       cont1:=cont1+1;
+                       if(cont1>=2)then
+                        jogada_ilegal:=true;
+                     end;
+                end;
+               if(i<=lin_ant-y)and(j<=col_ant-w)and(lin_ant>y)and(col_ant>w)then//movimento de baixo para cima pela esquerda
+                begin
+                   if(ocupado_pec_maq[lin_ant-i,col_ant-j])then
+                     jogada_ilegal:=true;
+                     if(ocupado_pec_jog[lin_ant-i,col_ant-j])then
+                     begin
+                       cont2:=cont2+1;
+                       if(cont2>=2)then
+                        jogada_ilegal:=true;
+                     end;
+                end;
+               if(i<=y-lin_ant)and(j<=w-col_ant)and(y>lin_ant)and(w>col_ant)then//movimento de cima para baixo pela direita
+                begin
+                    if(ocupado_pec_maq[lin_ant+i,col_ant+j])then
+                     jogada_ilegal:=true;
+                    if(ocupado_pec_jog[lin_ant+i,col_ant+j])then
+                     begin
+                       cont3:=cont3+1;
+                       if(cont3>=2)then
+                        jogada_ilegal:=true;
+                     end;
+                end;
+               if(i<=y-lin_ant)and(j<=col_ant-w)and(y>lin_ant)and(col_ant>w)then//movimento de cima para baixo pela esquerda
+                begin
+                  if(ocupado_pec_maq[lin_ant+i,col_ant-j])then
+                     jogada_ilegal:=true;
+                     if(ocupado_pec_jog[lin_ant+i,col_ant-j])then
+                     begin
+                       cont4:=cont4+1;
+                       if(cont4>=2)then
+                        jogada_ilegal:=true;
+                     end;
+                end;
+            end;
+       end
+        else
+          begin
+            cnt:=0;
+             jogada_ilegal:=false;
+              //deslocamento de uma peça randomizada por uma casa.
+               //random normal para um deslocamento de uma casa na diagonal
+             repeat
+               repeat
+                x:=random(13);//sorteio da peca comum da máquina
+                cnt:=cnt+1;
+                   if(cnt>10000)then
+                    begin
+                      fim_de_jogo(sender);
+                      exit;
+                    end;
+               until(peca_comida[x]=false)and(x<>0)and(x<=12);
+              for i:=1 to 8 do
+                for j:=1 to 8 do
+                 begin
+                   if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].top+centro)then
+                    begin
+                      lin_ant:=i;
+                      col_ant:=j;
+                    end;
+                 end;
+              repeat
+                y:=random(9);//sorteio do quadro a ser lançada a peça comum
+                w:=random(9);
+                contar_travar2:=contar_travar2+1;
+                if(contar_travar2>=10000)then
+                  begin
+                    fim_de_jogo(Sender);
+                    exit;
+                  end;
+              until(y<>0)and(w<>0);
+            until(y-lin_ant=1)and(w-col_ant=1)or(y-lin_ant=1)and(col_ant-w=1);
+          end;
+      until(jogada_ilegal=false)and(quadro_ocupado[y,w]=false);
+      ocupado_pec_maq[y,w]:=true;
+      quadro_ocupado[y,w]:=true;
+         for i:=1 to 8 do
+          begin
+           for j:=1 to 8 do
+            begin
+              if(peca[x].Top=quadro[i,j].Top+centro)and(peca[x].Left=quadro[i,j].Left+centro)then
+               begin
+                 quadro_ocupado[i,j]:=false;
+                 ocupado_pec_maq[i,j]:=false;
+               end;
+            end;
+          end;
+          peca[x].top:=quadro[y,w].top+centro;
+          peca[x].left:=quadro[y,w].left+centro;
+     end;
+end;
+end;
+   criar_dama_maquina(sender);
+end;
+end;
+  apagarEventoClick(1);
+ //finalizando
+ sobrou_peca_jog:=0;
+ for i:=1 to 8 do
+  begin
+    for j:=1 to 8 do
+     begin
+       for x:=1 to 36 do
+        begin
+          if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].Top+centro)then
+          begin
+           if(x>12)and(x<=36)then
+              sobrou_peca_jog:=sobrou_peca_jog+1;
+          end;
+       end;
+     end;
+  end;
+//  showmessage(IntToStr(sobrou_peca_jog));
+  if(sobrou_peca_jog=0)then
+   begin
+    Relogio.Enabled:=false;
+    messagebox(application.handle,'Fim de Jogo',PChar(Application.Title),MB_OK+MB_ICONINFORMATION);
+    for i:=1 to 48 do
+      peca[i].Enabled:=false;
+      exit;
+   end;
+   sobrou_peca:=0;
+  pecas_presas_jogador_finalizar(Sender);
+ for i:=1 to 8 do
+  begin
+    for j:=1 to 8 do
+     begin
+       for x:=1 to 48 do
+        begin
+          if(x<=12)or(x>36)then
+          if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].Top+centro)then
+           begin
+              sobrou_peca:=sobrou_peca+1;
+           end;
+       end;
+     end;
+  end;
+  if sobrou_peca=0 then
+    begin
+        if(frmconfig.dois_jogadores=false)then
+           analise_recorde(sender);
+         for i:=1 to 48 do
+          peca[i].Enabled:=false;
+           exit;
+    end;
+end;
+procedure Tfrm_principal.fim_de_jogo(Sender:Tobject);
+var i:integer;
+begin
+  Relogio.Enabled:=false;
+  for i:=1 to 48 do
+    peca[i].enabled:=false;
+  messagebox(application.handle,'Não interessa se é Bug ou Fim de Jogo. O jogo acabou!!!',PChar(Application.Title),MB_OK+MB_ICONINFORMATION);
+end;
+procedure Tfrm_principal.maq_comer_complentando(Sender:TObject);
+var i,j,x:integer;entrou:bool;
+begin
+repeat
+ entrou:=false;
+  for i:=1 to 8 do
+   begin
+    for j:=1 to 8 do
+     begin
+         if(peca[qual_peca].left=quadro[i,j].left+centro)and(peca[qual_peca].top=quadro[i,j].top+centro)then
+         begin
+             if(ocupado_pec_jog[i+1,j+1])and(quadro_ocupado[i+2,j+2]=false)and(i+2<=8)and(j+2<=8)then
+             begin
+                 delay(1000);
+                 entrou:=true;
+                 peca[qual_peca].left:=quadro[i+2,j+2].Left+centro;
+                 peca[qual_peca].top:=quadro[i+2,j+2].top+centro;
+                 quadro_ocupado[i+1,j+1]:=false;
+                 ocupado_pec_jog[i+1,j+1]:=false;
+                 ocupado_pec_maq[i,j]:=false;
+                 quadro_ocupado[i,j]:=false;
+                 quadro_ocupado[i+2,j+2]:=true;
+                 ocupado_pec_maq[i+2,j+2]:=true;
+                 for x:=13 to 36 do
+                 begin
+                   if(peca[x].left=quadro[i+1,j+1].Left+centro)and(peca[x].top=quadro[i+1,j+1].top+centro)then
+                   begin
+                      peca[x].left:=bevel2.Left+2;
+                      peca[x].top:=bevel2.top+2;
+                      peca[x].Enabled:=false;
+                   end;
+                 end;
+             end
+             else
+             if(ocupado_pec_jog[i+1,j-1])and(quadro_ocupado[i+2,j-2]=false)and(i+2<=8)and(j-2>0)then
+             begin
+                 delay(1000);
+                 entrou:=true;
+                 peca[qual_peca].left:=quadro[i+2,j-2].Left+centro;
+                 peca[qual_peca].top:=quadro[i+2,j-2].top+centro;
+                 quadro_ocupado[i+1,j-1]:=false;
+                 ocupado_pec_jog[i+1,j-1]:=false;
+                 ocupado_pec_maq[i,j]:=false;
+                 quadro_ocupado[i,j]:=false;
+                 quadro_ocupado[i+2,j-2]:=true;
+                 ocupado_pec_maq[i+2,j-2]:=true;
+                 for x:=13 to 36 do
+                 begin
+                   if(peca[x].left=quadro[i+1,j-1].Left+centro)and(peca[x].top=quadro[i+1,j-1].top+centro)then
+                   begin
+                      peca[x].left:=bevel2.Left+2;
+                      peca[x].top:=bevel2.top+2;
+                      peca[x].Enabled:=false;
+                   end;
+                 end;
+             end;
+         end;
+     end;
+   end;
+until(entrou=false);
+end;
+
+procedure Tfrm_principal.FormActivate(Sender: TObject);
+begin
+  spdbotao[1]:=speedbutton1;
+  spdbotao[2]:=speedbutton2;
+  spdbotao[3]:=speedbutton3;
+  spdbotao[4]:=speedbutton4;
+  spdbotao[5]:=speedbutton5;
+  spdbotao[6]:=speedbutton6;
+end;
+//a dama do jogador verificará se pode comer mais peças...
+procedure Tfrm_principal.Dama_Jogando(sender:Tobject);
+var i,j,cont,y,w,h:integer;dama_jog:boolean;
+begin
+   repeat
+    dama_jog:=false;
+    cont:=0;
+    //diagonal direita de cima para baixo
+    for i:=1 to 8 do
+      begin
+        for j:=1 to 8 do
+           begin
+                if(quadro[i,j].top+centro=pecas.top)and(quadro[i,j].left+centro=pecas.left)then
+                 begin
+                  if(controle_diagonal[10]=false)then
+                  begin
+                    for y:=1 to 8 do
+                     begin
+                        if(i+y<=8)and(j+y<=8)then
+                          begin
+                            //efetura a comparação de dois quadros sucessivos; se ocupado por peça inimiga
+                            //verifica se há peca da maquina entre os quadros que a dama quer saltar
+                             if(ocupado_pec_maq[i+y,j+y])and(quadro_ocupado[i+y+1,j+y+1])or(ocupado_pec_jog[i+y,j+y])then
+                               begin
+                                  cont:=1;//verifica a jogada ilegal
+                                  //só procederá o deslocamento se cont passar com valor zero
+                               end
+                               else
+                               if(i+y+1<=8)and(j+y+1<=8)and(quadro_ocupado[i+y+1,j+y+1]=false)and(ocupado_pec_maq[i+y,j+y])and(cont=0)then
+                                begin
+                                   delay(1000);
+                                   controle_diagonal[9]:=true;
+                                   controle_diagonal[11]:=false;
+                                   controle_diagonal[12]:=false;
+                                   dama_jog:=true;
+                                   contar_jogadas:=contar_jogadas+1;
+                                   pecas.top:=quadro[i+y+1,j+y+1].Top+centro;
+                                   pecas.left:=quadro[i+y+1,j+y+1].left+centro;
+                                   ocupado_pec_jog[i+y+1,j+y+1]:=true;
+                                   ocupado_dama_jog[i+y+1,j+y+1]:=true;
+                                   quadro_ocupado[i+y+1,j+y+1]:=true;
+                                   quadro_ocupado[i,j]:=false;
+                                   ocupado_dama_jog[i,j]:=false;
+                                   ocupado_pec_jog[i,j]:=false;
+                                 for h:=1 to 48 do
+                                  begin
+                                    if(peca[h].top=quadro[i+y,j+y].top+centro)and(peca[h].left=quadro[i+y,j+y].left+centro)then
+                                      begin
+                                         peca[h].left:=bevel1.Left+2;
+                                         peca[h].top:=bevel1.top+2;
+                                         peca[h].Enabled:=false;
+                                         quadro_ocupado[i+y,j+y]:=false;
+                                         ocupado_pec_maq[i+y,j+y]:=false;
+                                         peca_comida[h]:=true;
+                                         break;
+                                      end;
+                                  end;
+                                  continue;
+                             end;
+                          end;
+                        end;
+                     end;
+                     if(controle_diagonal[9]=false)then
+                     begin
+                        cont:=0;
+                        for y:=1 to 8 do
+                           begin
+                              //diagonal esquerda de baixo para cima
+                              if(i-y>0)and(j-y>0)then
+                                  begin
+                                      if(ocupado_pec_maq[i-y,j-y])and(quadro_ocupado[i-y-1,j-y-1])or(ocupado_pec_jog[i-y,j-y])then
+                                         begin
+                                              cont:=1;
+                                          end
+                                            else
+                                             if(i-y-1>0)and(j-y-1>0)and(quadro_ocupado[i-y-1,j-y-1]=false)and(ocupado_pec_maq[i-y,j-y])and(cont=0)then
+                                             begin
+                                               delay(1000);
+                                               controle_diagonal[10]:=true;
+                                               controle_diagonal[11]:=false;
+                                               controle_diagonal[12]:=false;
+                                               dama_jog:=true;
+                                               contar_jogadas:=contar_jogadas+1;
+                                               pecas.top:=quadro[i-y-1,j-y-1].Top+centro;
+                                               pecas.left:=quadro[i-y-1,j-y-1].left+centro;
+                                               ocupado_pec_jog[i-y-1,j-y-1]:=true;//quadros para onde foi a dama da maquina
+                                               ocupado_dama_jog[i-y-1,j-y-1]:=true;
+                                               quadro_ocupado[i-y-1,j-y-1]:=true;
+                                               quadro_ocupado[i,j]:=false; //quadros de onde saiu a dama da maquina
+                                               ocupado_dama_jog[i,j]:=false;
+                                               ocupado_pec_jog[i,j]:=false;
+                                              for h:=1 to 48 do
+                                               begin
+                                                if(peca[h].top=quadro[i-y,j-y].top+centro)and(peca[h].left=quadro[i-y,j-y].left+centro)then
+                                                 begin
+                                                    peca[h].left:=bevel1.Left+2;
+                                                    peca[h].top:=bevel1.top+2;
+                                                    peca[h].Enabled:=false;
+                                                    quadro_ocupado[i-y,j-y]:=false;//quadro aonde estava a peca comida
+                                                    ocupado_pec_maq[i-y,j-y]:=false;
+                                                    peca_comida[h]:=true;
+                                                    break;
+                                                 end;
+                                             end;
+                                             continue;
+                                         end;
+                                     end;
+                                 end;
+                            end;
+                         end;
+                     end;
+                  end;
+              cont:=0;
+           //diagonal direita de baixo para cima
+          for i:=1 to 8 do
+           begin
+            for j:=1 to 8 do
+              begin
+                 if(quadro[i,j].top+centro=pecas.top)and(quadro[i,j].left+centro=pecas.left)then
+                     begin
+                      if(controle_diagonal[12]=false)then
+                      begin
+                        for y:=1 to 8 do
+                         begin
+                          if(i-y>0)and(j+y<=8)then
+                          begin
+
+                             if(ocupado_pec_maq[i-y,j+y])and(quadro_ocupado[i-y-1,j+y+1])or(ocupado_pec_jog[i-y,j+y])then
+                               begin
+                                  cont:=1;
+                               end
+                               else
+                               if(i-y-1>0)and(j+y+1<=8)and(quadro_ocupado[i-y-1,j+y+1]=false)and(ocupado_pec_maq[i-y,j+y])and(cont=0)then
+                                begin
+                                  delay(1000);
+                                  controle_diagonal[9]:=false;
+                                  controle_diagonal[10]:=false;
+                                  controle_diagonal[11]:=true;
+                                  dama_jog:=true;
+                                  contar_jogadas:=contar_jogadas+1;
+                                  pecas.top:=quadro[i-y-1,j+y+1].Top+centro;
+                                  pecas.left:=quadro[i-y-1,j+y+1].left+centro;
+                                  ocupado_pec_jog[i-y-1,j+y+1]:=true;
+                                  ocupado_dama_jog[i-y-1,j+y+1]:=true;
+                                  quadro_ocupado[i-y-1,j+y+1]:=true;
+                                  quadro_ocupado[i,j]:=false;
+                                  ocupado_pec_jog[i,j]:=false;
+                                  ocupado_dama_jog[i,j]:=false;
+                                  for h:=1 to 48 do
+                                  begin
+                                    if(peca[h].top=quadro[i-y,j+y].top+centro)and(peca[h].left=quadro[i-y,j+y].left+centro)then
+                                     begin
+                                        peca[h].left:=bevel1.Left+2;
+                                        peca[h].top:=bevel1.top+2;
+                                        peca[h].Enabled:=false;
+                                        quadro_ocupado[i-y,j+y]:=false;
+                                        ocupado_pec_maq[i-y,j+y]:=false;
+                                        peca_comida[h]:=true;
+                                        break;
+                                     end;
+                                  end;
+                                  continue;
+                               end;
+                           end;
+                      end;
+                 end;
+              if(controle_diagonal[11]=false)then
+              begin
+                 cont:=0;
+                 //diagonal esquerda de cima para baixo
+              for y:=1 to 8 do
+               begin
+                  if(i+y<=8)and(j-y>0)then
+                     begin
+                       if(ocupado_pec_maq[i+y,j-y])and(quadro_ocupado[i+y+1,j-y-1])or(ocupado_pec_jog[i+y,j-y])then
+                          begin
+                            cont:=1;
+                           end
+                            else
+                                if(i+y+1<=8)and(j-y-1>0)and(quadro_ocupado[i+y+1,j-y-1]=false)and(ocupado_pec_maq[i+y,j-y])and(cont=0)then
+                                begin
+                                  delay(1000);
+                                  controle_diagonal[9]:=false;
+                                  controle_diagonal[10]:=false;
+                                  controle_diagonal[12]:=true;
+                                  dama_jog:=true;
+                                  contar_jogadas:=contar_jogadas+1;
+                                  pecas.top:=quadro[i+y+1,j-y-1].Top+centro;
+                                  pecas.left:=quadro[i+y+1,j-y-1].left+centro;
+                                  ocupado_pec_jog[i+y+1,j-y-1]:=true;
+                                  ocupado_dama_jog[i+y+1,j-y-1]:=true;
+                                  quadro_ocupado[i+y+1,j-y-1]:=true;
+                                  quadro_ocupado[i,j]:=false;
+                                  ocupado_pec_jog[i,j]:=false;
+                                  ocupado_dama_jog[i,j]:=false;
+                                  for h:=1 to 48 do
+                                  begin
+                                    if(peca[h].top=quadro[i+y,j-y].top+centro)and(peca[h].left=quadro[i+y,j-y].left+centro)then
+                                     begin
+                                        peca[h].left:=bevel1.Left+2;
+                                        peca[h].top:=bevel1.top+2;
+                                        peca[h].Enabled:=false;
+                                        quadro_ocupado[i+y,j-y]:=false;
+                                        ocupado_pec_maq[i+y,j-y]:=false;
+                                        peca_comida[h]:=true;
+                                        break;
+                                     end;
+                                  end;
+                                  continue;
+                              end;
+                           end;
+                       end;
+                   end;
+                end;
+             end;
+           end;
+until(dama_jog=false);
+controle_diagonal[9]:=false;
+controle_diagonal[10]:=false;
+controle_diagonal[11]:=false;
+controle_diagonal[12]:=false;
+end;
+
+procedure Tfrm_principal.ImageClick(Sender: TObject);
+var w,h,x,y,col,lin,num,i,l,j,a,contar_peca,num_controle:integer;nome,copiado:string[10];
+peca_dama,jogada_ilegal,jogador1:boolean;
+begin
+shape1.Visible:=false;
+c:=0;contar_peca:=0;
+peca_dama:=false;
+jogador1:=false;
+if(peca_clicada) then
+begin
+  for i:=1 to 48 do
+    begin
+     if(pecas.left=peca[i].left)and(pecas.top=peca[i].top)then
+     begin
+       if(i>24)then
+       begin
+         peca_dama:=true;
+       end;
+     end;
+    end;
+end;
+ nome:=(sender as Timage).name;
+ copiado:=copy(nome,6,length(nome)); //copiará o numero do Image
+ for i:=1 to 8 do
+  for j:=1 to 8 do
+  begin
+     c:=c+1;
+     if StrToInt(copiado)=c then
+      begin
+        lin:=i;
+        col:=j;
+      end;
+  end;
+   c:=0;
+ if  quadro_ocupado[lin,col]=false then
+ begin
+   if(peca_clicada)then
+    begin
+      //deslocamento de peça comum
+       //codigo para peca de dois jogadores...
+         //deslomento das peças de um segundo jogador...
+         if(StrToInt(cop_peca)>=65) and (StrToInt(cop_peca)<=76)then
+         begin
+           jogador1:=true;
+           for i:=1 to 8 do
+            begin
+            for j:=1 to 8 do
+            begin
+            //deslocamento da peca por uma casa na diagonal
+            if(quadro[i,j].top=(sender as Timage).top)and(quadro[i,j].left=(sender as Timage).left)then
+             begin
+              if(i-cap_lin=1)and(cap_col-j=1)or(i-cap_lin=1)and(j-cap_col=1)then
+               begin
+                    peca_clicada:=false;
+                    quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                    ocupado_pec_maq[num_quadro_lin,num_quadro_col]:=false;
+                    pecas.left:=(sender as Timage).left+centro;
+                    pecas.top:=(sender as Timage).top+centro;
+                    quadro_ocupado[lin,col]:=true;
+                    ocupado_pec_maq[lin,col]:=true;
+                    criar_dama_maquina(sender);
+                    jog_maquina(sender);
+                    break;
+               end;
+            end;
+         end;
+     end;
+     //comer pela  diagonal esquerda
+     for i:=1 to 8 do
+       begin
+        for j:=1 to 8 do
+        begin
+         if(quadro[i,j].top=(sender as Timage).top)and(quadro[i,j].left=(sender as Timage).left)then
+          begin
+             if(i-cap_lin=2)and(j-cap_col=2)then
+             begin
+                 for w:=1 to 8 do
+                   for h:=1 to 8 do
+                     begin
+                        if(cap_lin+1=w)and(cap_col+1=h)then
+                         if(ocupado_pec_jog[cap_lin+1,cap_col+1]=true)then
+                         begin
+                          for l:=1 to 48 do
+                          begin
+                           if(quadro[w,h].left+centro=peca[l].Left)and(quadro[w,h].top+centro=peca[l].Top)then
+                             begin
+                                 peca_clicada:=false;
+                                 quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                 ocupado_pec_maq[num_quadro_lin,num_quadro_col]:=false;
+                                 peca[l].left:=bevel2.left+2;
+                                 peca[l].top:=bevel2.top+2;
+                                 peca_comida[l]:=true;
+                                 quadro_ocupado[w,h]:=false;
+                                 pecas.left:=(sender as Timage).left+centro;
+                                 pecas.top:=(sender as Timage).top+centro;
+                                 quadro_ocupado[lin,col]:=true; //dirá se está com a peça no Timage
+                                 ocupado_pec_maq[lin,col]:=true;
+                                 ocupado_pec_jog[w,h]:=false;
+                                 peca_clicada:=false;
+                                 jogador1_comer(sender);
+                                 criar_dama_maquina(sender);
+                                 jog_maquina(sender);
+                                 break;
+                              end;
+                            end;
+                          end;
+                       end;
+                   end;
+                end;
+            end;
+          end;
+
+         //comer na diagonal esquerda...
+     for i:=1 to 8 do
+       begin
+        for j:=1 to 8 do
+         begin
+          if(quadro[i,j].top=(sender as Timage).top)and(quadro[i,j].left=(sender as Timage).left)then
+           begin
+             if(i-cap_lin=2)and(cap_col-j=2)then
+              begin
+                 for w:=1 to 8 do
+                   for h:=1 to 8 do
+                     begin
+                       c:=c+1;
+                      if(cap_lin+1=w)and(cap_col-1=h)then
+                       if(ocupado_pec_jog[cap_lin+1,cap_col-1]=true)then
+                         begin
+                           for l:=1 to 48 do
+                            begin
+                             if(quadro[w,h].left+centro=peca[l].Left)and(quadro[w,h].top+centro=peca[l].Top)then
+                              begin
+                                peca_clicada:=false;
+                                quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                ocupado_pec_maq[num_quadro_lin,num_quadro_col]:=false;
+                                peca[l].left:=bevel2.left+2;
+                                peca[l].top:=bevel2.top+2;
+                                peca_comida[l]:=true;
+                                quadro_ocupado[w,h]:=false;
+                                pecas.left:=(sender as Timage).left+centro;
+                                pecas.top:=(sender as Timage).top+centro;
+                                quadro_ocupado[lin,col]:=true; //dirá se está com a peça no Timage
+                                ocupado_pec_maq[lin,col]:=true;
+                                ocupado_pec_jog[w,h]:=false;
+                                peca_clicada:=false;
+                                jogador1_comer(sender);
+                                criar_dama_maquina(sender);
+                                jog_maquina(sender);
+                                break;
+                              end;
+                           end;
+                         end;
+                       end;
+                    end;
+                 end;
+             end;
+          end;
+       cop_peca:='0';
+     end;
+            //dama do segundo jogador....
+      if(StrToInt(cop_peca)>=101)and(StrToInt(cop_peca)<=112)then
+       begin
+           jogador1:=true;
+           cop_peca:='0';
+         for i:=1 to 8 do
+          begin
+            for j:=1 to 8 do
+             begin
+             jogada_ilegal:=false;
+             //começa aqui
+               if(quadro[i,j].top=(sender as Timage).top)and(quadro[i,j].left=(sender as Timage).left)then
+                begin
+                //restringe os deslocamentos da dama na diagonal
+                   if(cap_lin>i)and(cap_col<j)then//trajetória pela diagonal direita de baixo para cima
+                     begin
+                         num_controle:=cap_lin-i;
+                         if(cap_col+num_controle=j)then
+                          begin
+                          //varre a diagonal em busca de jogada proibida, como pular duas peças inimigas ou pular peça amiga
+                            for w:=1 to cap_lin-i do
+                              begin
+                                 //captura os quadro entre o primeiro e o último jogado pela dama
+                                 if(ocupado_pec_maq[cap_lin-w,cap_col+w])then
+                                  begin
+                                     jogada_ilegal:=true;
+                                  end
+                                  else
+                                  if(ocupado_pec_jog[cap_lin-w,cap_col+w])then
+                                  begin
+                                     contar_peca:=contar_peca+1;
+                                     if(contar_peca>=2)then
+                                      begin
+                                         jogada_ilegal:=true;
+                                      end;
+                                  end;
+                                end;//aqui o end
+                                    if(jogada_ilegal=false)then
+                                       begin
+                                            c:=0;
+                                            peca_clicada:=false;
+                                            quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                            ocupado_pec_maq[num_quadro_lin,num_quadro_col]:=false;
+                                            ocupado_dama_maq[num_quadro_lin,num_quadro_col]:=false;
+                                            pecas.Left:=quadro[i,j].left+centro;
+                                            pecas.top:=quadro[i,j].top+centro;
+                                            quadro_ocupado[lin,col]:=true;
+                                            ocupado_dama_maq[lin,col]:=true;
+                                            ocupado_pec_maq[lin,col]:=true;
+                                         // peça DAMA come a peça inimiga!!!
+                                          for a:=1 to cap_lin-i do
+                                            begin
+                                               if(ocupado_pec_jog[cap_lin-a,cap_col+a])then
+                                                    begin
+                                                      for h:=1 to 48 do
+                                                       begin
+                                                        if(h>12)and(h<=36)then
+                                                         if(peca[h].left=quadro[cap_lin-a,cap_col+a].Left+centro)and(peca[h].top=quadro[cap_lin-a,cap_col+a].top+centro)then
+                                                          begin
+                                                               peca[h].left:=bevel2.left+2;
+                                                               peca[h].top:=bevel2.top+2;
+                                                               peca[h].Enabled:=false;
+                                                               quadro_ocupado[cap_lin-a,cap_col+a]:=false;
+                                                               ocupado_pec_jog[cap_lin-a,cap_col+a]:=false;
+                                                               quadro_ocupado[lin,col]:=true;
+                                                               ocupado_dama_maq[lin,col]:=true;
+                                                               ocupado_pec_maq[lin,col]:=true;
+                                                               controle_diagonal[3]:=true;
+                                                               dama_jogador1_comer(Sender);
+                                                          end;
+                                                       end;
+                                                   end;
+                                              end;
+                                              jog_maquina(sender);
+                                              break;
+                                          end;
+                                     end;
+                                   end;
+                          jogada_ilegal:=false;
+                          contar_peca:=0;
+                     //restringe os deslocamentos da Dama na diagonal
+                      if(cap_lin>i)and(cap_col>j)then//trajetória pela diagonal esquerda de baixo para cima
+                       begin
+                         num_controle:=cap_lin-i;
+                         if(cap_col-num_controle=j)then
+                          begin
+                          //varre a diagonal em busca de jogada proibida, como pular duas peças inimigas ou pular peça amiga
+                            for w:=1 to cap_lin-i do
+                              begin
+                                 if(ocupado_pec_maq[cap_lin-w,cap_col-w])then
+                                 begin
+                                     jogada_ilegal:=true;
+                                  end
+                                  else
+                                  if(ocupado_pec_jog[cap_lin-w,cap_col-w])then
+                                  begin
+                                     contar_peca:=contar_peca+1;
+                                     if(contar_peca>=2)then
+                                      begin
+                                         jogada_ilegal:=true;
+                                      end;
+                                  end;
+                             end;
+                              if(jogada_ilegal=false)then
+                                   begin
+                                   peca_clicada:=false;
+                                     quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_pec_maq[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_dama_maq[num_quadro_lin,num_quadro_col]:=false;
+                                     pecas.Left:=quadro[i,j].left+centro;
+                                     pecas.top:=quadro[i,j].top+centro;
+                                     quadro_ocupado[lin,col]:=true;
+                                     ocupado_dama_maq[lin,col]:=true;
+                                     ocupado_pec_maq[lin,col]:=true;
+                                    for a:=1 to cap_lin-i do
+                                      begin
+                                               if(ocupado_pec_jog[cap_lin-a,cap_col-a])then
+                                                    begin
+                                                      for h:=1 to 48 do
+                                                       begin
+                                                        if(h>12)and(h<=36)then
+                                                       if(peca[h].left=quadro[cap_lin-a,cap_col-a].Left+centro)and(peca[h].top=quadro[cap_lin-a,cap_col-a].top+centro)then
+                                                        begin
+                                                          peca[h].left:=bevel2.left+2;
+                                                          peca[h].top:=bevel2.top+2;
+                                                          peca[h].Enabled:=false;
+                                                          quadro_ocupado[cap_lin-a,cap_col-a]:=false;
+                                                          ocupado_pec_jog[cap_lin-a,cap_col-a]:=false;
+                                                          quadro_ocupado[lin,col]:=true;
+                                                          ocupado_dama_maq[lin,col]:=true;
+                                                          ocupado_pec_maq[lin,col]:=true;
+                                                          controle_diagonal[2]:=true;
+                                                          dama_jogador1_comer(Sender);
+                                                    end;
+                                           end;
+                                      end;
+                              end;
+                               jog_maquina(sender);
+                                           break;
+                          end;
+                       end;
+                      end;
+                      jogada_ilegal:=false;
+                      contar_peca:=0;
+                      //restrição de deslocamento da DAMA na diagonal direita de cima para baixo
+                      if(cap_lin<i)and(cap_col<j)then
+                       begin
+                         num_controle:=i-cap_lin;
+                         if(cap_col+num_controle=j)then
+                          begin
+                          //varre a diagonal em busca de jogada proibida, como pular duas peças inimigas ou pular peça amiga
+                            for w:=1 to i-cap_lin-1 do
+                              begin
+                                 if(ocupado_pec_maq[cap_lin+w,cap_col+w])then
+                                 begin
+                                     jogada_ilegal:=true;
+                                 end
+                                  else
+                                  if(ocupado_pec_jog[cap_lin+w,cap_col+w])then
+                                  begin
+                                     contar_peca:=contar_peca+1;
+                                     if(contar_peca>=2)then
+                                      begin
+                                         jogada_ilegal:=true;
+                                      end;
+                                  end;
+                              end;
+                              if(jogada_ilegal=false)then
+                                   begin
+                                   peca_clicada:=false;
+                                     quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_pec_maq[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_dama_maq[num_quadro_lin,num_quadro_col]:=false;
+                                     pecas.Left:=quadro[i,j].left+centro;
+                                     pecas.top:=quadro[i,j].top+centro;
+                                     quadro_ocupado[lin,col]:=true;
+                                     ocupado_dama_maq[lin,col]:=true;
+                                     ocupado_pec_maq[lin,col]:=true;
+                                    for a:=1 to i-cap_lin-1 do
+                                      begin
+                                         if(ocupado_pec_jog[cap_lin+a,cap_col+a])then
+                                                begin
+                                                    for h:=1 to 48 do
+                                                       begin
+                                                        if(h>12)and(h<=36)then
+                                                       if(peca[h].left=quadro[cap_lin+a,cap_col+a].Left+centro)and(peca[h].top=quadro[cap_lin+a,cap_col+a].top+centro)then
+                                                        begin
+                                                          peca[h].left:=bevel2.left+2;
+                                                          peca[h].top:=bevel2.top+2;
+                                                          peca[h].Enabled:=false;
+                                                          quadro_ocupado[cap_lin+a,cap_col+a]:=false;
+                                                          ocupado_pec_jog[cap_lin+a,cap_col+a]:=false;
+                                                          quadro_ocupado[lin,col]:=true;
+                                                          ocupado_dama_maq[lin,col]:=true;
+                                                          ocupado_pec_maq[lin,col]:=true;
+                                                          controle_diagonal[1]:=true;
+                                                          dama_jogador1_comer(Sender);
+                                                       end;
+                                                end;
+                                         end;
+                                 end;
+                                  jog_maquina(sender);
+                                           break;
+                           end;
+                       end;
+                      end;
+                       jogada_ilegal:=false;
+                       contar_peca:=0;
+                          //restrição de deslocamento da DAMA na diagonal esquerda cima para baixo
+                      if(cap_col>j)and(cap_lin<i)then
+                       begin
+                         num_controle:=i-cap_lin;
+                         if(cap_col-num_controle=j)then
+                          begin
+                          //varre a diagonal em busca de jogada proibida, como pular duas peças inimigas ou pular peça amiga
+                            for w:=1 to i-cap_lin-1 do
+                              begin
+                                 if(ocupado_pec_maq[cap_lin+w,cap_col-w])then
+                                 begin
+                                     jogada_ilegal:=true;
+                                  end
+                                  else
+                                  if(ocupado_pec_jog[cap_lin+w,cap_col-w])then
+                                  begin
+                                     contar_peca:=contar_peca+1;
+                                     if(contar_peca>=2)then
+                                      begin
+                                         jogada_ilegal:=true;
+                                      end;
+                                  end;
+                               end;
+                              if(jogada_ilegal=false)then
+                                   begin
+                                     peca_clicada:=false;
+                                     quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_pec_maq[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_dama_maq[num_quadro_lin,num_quadro_col]:=false;
+                                     pecas.Left:=quadro[i,j].left+centro;
+                                     pecas.top:=quadro[i,j].top+centro;
+                                     quadro_ocupado[lin,col]:=true;
+                                     ocupado_dama_maq[lin,col]:=true;
+                                     ocupado_pec_maq[lin,col]:=true;
+                                      for a:=1 to i-cap_lin-1 do
+                                        begin
+                                           if(ocupado_pec_jog[cap_lin+a,cap_col-a])then
+                                                begin
+                                                      for h:=1 to 48 do
+                                                       begin
+                                                        if(h>12)and(h<=36)then
+                                                          if(peca[h].left=quadro[cap_lin+a,cap_col-a].Left+centro)and(peca[h].top=quadro[cap_lin+a,cap_col-a].top+centro)then
+                                                        begin
+                                                          peca[h].left:=bevel2.left+2;
+                                                          peca[h].top:=bevel2.top+2;
+                                                          peca[h].Enabled:=false;
+                                                          quadro_ocupado[cap_lin+a,cap_col-a]:=false;
+                                                          ocupado_pec_jog[cap_lin+a,cap_col-a]:=false;
+                                                          quadro_ocupado[lin,col]:=true;
+                                                          ocupado_dama_maq[lin,col]:=true;
+                                                          ocupado_pec_maq[lin,col]:=true;
+                                                          controle_diagonal[2]:=true;
+                                                          dama_jogador1_comer(Sender);
+                                                        end;
+                                                    end;
+                                                end;
+                                           end;
+                                           jog_maquina(sender);
+                                           break;
+                                       end;
+                                  end;
+                             end;
+                         end;
+                     end;
+                end;
+             end;
+       //um jogador...
+  if(jogador1=false)then
+    //codigo de movimentação da peça que virou DAMA do jogador
+     if(peca_dama)then
+       begin
+         jogada_ilegal:=false;
+         for i:=1 to 8 do
+          begin
+            for j:=1 to 8 do
+             begin
+             //começa aqui
+               if(quadro[i,j].top=(sender as Timage).top)and(quadro[i,j].left=(sender as Timage).left)then
+                begin
+                //restringe os deslocamentos da dama na diagonal
+                   if(cap_lin>i)and(cap_col<j)then//trajetória pela diagonal direita de baixo para cima
+                     begin
+                         num_controle:=cap_lin-i;
+                         if(cap_col+num_controle=j)then
+                          begin
+                          //varre a diagonal em busca de jogada proibida, como pular duas peças inimigas ou pular peça amiga
+                            for w:=1 to cap_lin-i do
+                              begin
+                                 //captura os quadro entre o primeiro e o último jogado pela dama
+                                 if(ocupado_pec_jog[cap_lin-w,cap_col+w])then
+                                 begin
+                                     jogada_ilegal:=true;
+                                  end
+                                  else
+                                  if(ocupado_pec_maq[cap_lin-w,cap_col+w])then
+                                  begin
+                                     contar_peca:=contar_peca+1;
+                                     if(contar_peca>=2)then
+                                      begin
+                                         jogada_ilegal:=true;
+                                      end;
+                                  end;
+                                end;//aqui o end
+
+                                 if(jogada_ilegal=false)then
+                                   begin
+                                            c:=0;
+                                            contar_jogadas:=contar_jogadas+1;
+                                            peca_clicada:=false;
+                                            quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                            ocupado_pec_jog[num_quadro_lin,num_quadro_col]:=false;
+                                            ocupado_dama_jog[num_quadro_lin,num_quadro_col]:=false;
+                                            pecas.Left:=quadro[i,j].left+centro;
+                                            pecas.top:=quadro[i,j].top+centro;
+                                            quadro_ocupado[lin,col]:=true;
+                                            ocupado_dama_jog[lin,col]:=true;
+                                            ocupado_pec_jog[lin,col]:=true;
+                                            {
+                                              if(frmconfig.dois_jogadores=false)then
+                                                verificar_assopro(sender);}
+                                         // peça DAMA come a peça inimiga!!!
+                                     for a:=1 to cap_lin-i do
+                                      begin
+                                          for h:=1 to 48 do
+                                           begin
+                                               if(ocupado_pec_maq[cap_lin-a,cap_col+a])then
+                                                    begin
+                                                       if(peca[h].left=quadro[cap_lin-a,cap_col+a].Left+centro)and(peca[h].top=quadro[cap_lin-a,cap_col+a].top+centro)then
+                                                        begin
+                                                          peca[h].left:=bevel1.left+2;
+                                                          peca[h].top:=bevel1.top+2;
+                                                          peca[h].Enabled:=false;
+                                                          quadro_ocupado[cap_lin-a,cap_col+a]:=false;
+                                                          ocupado_pec_maq[cap_lin-a,cap_col+a]:=false;
+                                                          quadro_ocupado[lin,col]:=true;
+                                                          ocupado_dama_jog[lin,col]:=true;
+                                                          ocupado_pec_jog[lin,col]:=true;
+                                                          peca_comida[h]:=true;
+                                                          controle_diagonal[11]:=true;
+                                                          Dama_Jogando(sender);
+                                                        end;
+                                                    end;
+                                               end;
+                                           end;
+                                         //  if(frmconfig.dois_jogadores=false)then
+                                            jog_maquina(sender);
+                                            break;
+                                      end;
+                                  end;
+                            end;
+                          jogada_ilegal:=false;
+                          contar_peca:=0;
+                     //restringe os deslocamentos da Dama na diagonal
+                      if(cap_lin>i)and(cap_col>j)then//trajetória pela diagonal esquerda de baixo para cima
+                       begin
+                         num_controle:=cap_lin-i;
+                         if(cap_col-num_controle=j)then
+                          begin
+                          //varre a diagonal em busca de jogada proibida, como pular duas peças inimigas ou pular peça amiga
+                            for w:=1 to cap_lin-i do
+                              begin
+                                 if(ocupado_pec_jog[cap_lin-w,cap_col-w])then
+                                 begin
+                                     jogada_ilegal:=true;
+                                  end
+                                  else
+                                  if(ocupado_pec_maq[cap_lin-w,cap_col-w])then
+                                  begin
+                                     contar_peca:=contar_peca+1;
+                                     if(contar_peca>=2)then
+                                      begin
+                                         jogada_ilegal:=true;
+                                      end;
+                                  end;
+                             end;
+                              if(jogada_ilegal=false)then
+                                   begin
+                                     contar_jogadas:=contar_jogadas+1;
+                                     peca_clicada:=false;
+                                     quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_pec_jog[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_dama_jog[num_quadro_lin,num_quadro_col]:=false;
+                                     pecas.Left:=quadro[i,j].left+centro;
+                                     pecas.top:=quadro[i,j].top+centro;
+                                     quadro_ocupado[lin,col]:=true;
+                                     ocupado_dama_jog[lin,col]:=true;
+                                     ocupado_pec_jog[lin,col]:=true;
+                                    { if(frmconfig.dois_jogadores=false)then
+                                        verificar_assopro(sender);}
+                                    for a:=1 to cap_lin-i do
+                                      begin
+                                          for h:=1 to 48 do
+                                           begin
+                                               if(ocupado_pec_maq[cap_lin-a,cap_col-a])then
+                                                    begin
+                                                       if(peca[h].left=quadro[cap_lin-a,cap_col-a].Left+centro)and(peca[h].top=quadro[cap_lin-a,cap_col-a].top+centro)then
+                                                        begin
+                                                         peca[h].left:=bevel1.left+2;
+                                                          peca[h].top:=bevel1.top+2;
+                                                          peca[h].Enabled:=false;
+                                                          quadro_ocupado[cap_lin-a,cap_col-a]:=false;
+                                                          ocupado_pec_maq[cap_lin-a,cap_col-a]:=false;
+                                                          quadro_ocupado[lin,col]:=true;
+                                                          ocupado_dama_jog[lin,col]:=true;
+                                                          ocupado_pec_jog[lin,col]:=true;
+                                                          peca_comida[h]:=true;
+                                                          controle_diagonal[10]:=true;
+                                                          Dama_Jogando(sender);
+                                                        end;
+                                                    end;
+                                           end;
+                                      end;
+                                     // if(frmconfig.dois_jogadores=false)then
+                                        jog_maquina(sender);
+                                        break;
+                              end;
+                          end;
+                       end;
+                      jogada_ilegal:=false;
+                      contar_peca:=0;
+                      //restrição de deslocamento da DAMA na diagonal direita de cima para baixo
+                      if(cap_lin<i)and(cap_col<j)then
+                       begin
+                         num_controle:=i-cap_lin;
+                         if(cap_col+num_controle=j)then
+                          begin
+                          //varre a diagonal em busca de jogada proibida, como pular duas peças inimigas ou pular peça amiga
+                            for w:=1 to i-cap_lin-1 do
+                              begin
+                                 if(ocupado_pec_jog[cap_lin+w,cap_col+w])then
+                                 begin
+                                     jogada_ilegal:=true;
+                                  end
+                                  else
+                                  if(ocupado_pec_maq[cap_lin+w,cap_col+w])then
+                                  begin
+                                     contar_peca:=contar_peca+1;
+                                     if(contar_peca>=2)then
+                                      begin
+                                         jogada_ilegal:=true;
+                                      end;
+                                  end;
+                              end;
+                              if(jogada_ilegal=false)then
+                                   begin
+                                      contar_jogadas:=contar_jogadas+1;
+                                     peca_clicada:=false;
+                                     quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_pec_jog[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_dama_jog[num_quadro_lin,num_quadro_col]:=false;
+                                     pecas.Left:=quadro[i,j].left+centro;
+                                     pecas.top:=quadro[i,j].top+centro;
+                                     quadro_ocupado[lin,col]:=true;
+                                     ocupado_dama_jog[lin,col]:=true;
+                                     ocupado_pec_jog[lin,col]:=true;
+                                    { if(frmconfig.dois_jogadores=false)then
+                                        verificar_assopro(sender);}
+                                    for a:=1 to i-cap_lin-1 do
+                                      begin
+                                          for h:=1 to 48 do
+                                           begin
+                                               if(ocupado_pec_maq[cap_lin+a,cap_col+a])then
+                                                    begin
+                                                       if(peca[h].left=quadro[cap_lin+a,cap_col+a].Left+centro)and(peca[h].top=quadro[cap_lin+a,cap_col+a].top+centro)then
+                                                        begin
+                                                          peca[h].left:=bevel1.left+2;
+                                                          peca[h].top:=bevel1.top+2;
+                                                          peca[h].Enabled:=false;
+                                                          quadro_ocupado[cap_lin+a,cap_col+a]:=false;
+                                                          ocupado_pec_maq[cap_lin+a,cap_col+a]:=false;
+                                                          quadro_ocupado[lin,col]:=true;
+                                                          ocupado_dama_jog[lin,col]:=true;
+                                                          ocupado_pec_jog[lin,col]:=true;
+                                                          peca_comida[h]:=true;
+                                                          controle_diagonal[9]:=true;
+                                                          Dama_Jogando(sender);
+                                                        end;
+                                                    end;
+                                             end;
+                                       end;
+                                      // if(frmconfig.dois_jogadores=false)then
+                                         jog_maquina(sender);
+                                         break;
+                                 end;
+                           end;
+                       end;
+                       jogada_ilegal:=false;
+                       contar_peca:=0;
+                          //restrição de deslocamento da DAMA na diagonal esquerda cima para baixo
+                      if(cap_col>j)and(cap_lin<i)then
+                       begin
+                         num_controle:=i-cap_lin;
+                         if(cap_col-num_controle=j)then
+                          begin
+                          //varre a diagonal em busca de jogada proibida, como pular duas peças inimigas ou pular peça amiga
+                            for w:=1 to i-cap_lin-1 do
+                              begin
+                                 if(ocupado_pec_jog[cap_lin+w,cap_col-w])then
+                                 begin
+                                     jogada_ilegal:=true;
+                                  end
+                                  else
+                                  if(ocupado_pec_maq[cap_lin+w,cap_col-w])then
+                                  begin
+                                     contar_peca:=contar_peca+1;
+                                     if(contar_peca>=2)then
+                                      begin
+                                         jogada_ilegal:=true;
+                                      end;
+                                  end;
+                               end;
+                              if(jogada_ilegal=false)then
+                                   begin
+                                     contar_jogadas:=contar_jogadas+1;
+                                     peca_clicada:=false;
+                                     quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_pec_jog[num_quadro_lin,num_quadro_col]:=false;
+                                     ocupado_dama_jog[num_quadro_lin,num_quadro_col]:=false;
+                                     pecas.Left:=quadro[i,j].left+centro;
+                                     pecas.top:=quadro[i,j].top+centro;
+                                     quadro_ocupado[lin,col]:=true;
+                                     ocupado_dama_jog[lin,col]:=true;
+                                     ocupado_pec_jog[lin,col]:=true;
+                                    { if(frmconfig.dois_jogadores=false)then
+                                        verificar_assopro(sender);}
+                                      for a:=1 to i-cap_lin-1 do
+                                      begin
+                                         for h:=1 to 48 do
+                                           begin
+                                               if(ocupado_pec_maq[cap_lin+a,cap_col-a])then
+                                                    begin
+                                                       if(peca[h].left=quadro[cap_lin+a,cap_col-a].Left+centro)and(peca[h].top=quadro[cap_lin+a,cap_col-a].top+centro)then
+                                                        begin
+                                                          peca[h].left:=bevel1.left+2;
+                                                          peca[h].top:=bevel1.top+2;
+                                                          peca[h].Enabled:=false;
+                                                          quadro_ocupado[cap_lin+a,cap_col-a]:=false;
+                                                          ocupado_pec_maq[cap_lin+a,cap_col-a]:=false;
+                                                          quadro_ocupado[lin,col]:=true;
+                                                          ocupado_dama_jog[lin,col]:=true;
+                                                          ocupado_pec_jog[lin,col]:=true;
+                                                          peca_comida[h]:=true;
+                                                          controle_diagonal[12]:=true;
+                                                          Dama_Jogando(sender);
+                                                        end;
+                                                    end;
+                                                end;
+                                           end;
+                                        // if(frmconfig.dois_jogadores=false)then
+                                         jog_maquina(sender);
+                                         break;
+                              end;
+                          end;
+                       end;
+                   end;
+               end;
+          end;
+       end
+   else
+    if(peca_clicada)then
+      if(jogador1=false)then
+        begin
+         //deslocar uma casa na diagonal
+         for i:=1 to 8 do
+          begin
+           for j:=1 to 8 do
+             begin
+             c:=c+1;
+             if(quadro[i,j].top=(sender as Timage).top)and(quadro[i,j].left=(sender as Timage).left)then
+              begin
+               if(cap_lin-i=1)and(j-cap_col=1)or(cap_lin-i=1)and(cap_col-j=1)then
+                begin
+                if(frmconfig.dois_jogadores=false)then
+                    verificar_assopro(sender);
+                  quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                  ocupado_pec_jog[num_quadro_lin,num_quadro_col]:=false;
+                 if(mesma_peca=false)then
+                  begin
+                   contar_jogadas:=contar_jogadas+1;
+                    pecas.left:=(sender as Timage).left+centro;
+                    pecas.top:=(sender as Timage).top+centro;
+                    quadro_ocupado[lin,col]:=true;
+                    ocupado_pec_jog[lin,col]:=true;
+                  end;
+                    peca_clicada:=false;
+                    criar_dama(sender);
+                 // if(frmconfig.dois_jogadores=false)then
+                   jog_maquina(sender);
+                   break;
+             end;
+          end;
+       end;
+     end;
+     c:=0;
+     //comer uma peça pela diagonal direita
+     for i:=1 to 8 do
+       begin
+        for j:=1 to 8 do
+        begin
+         if(quadro[i,j].top=(sender as Timage).top)and(quadro[i,j].left=(sender as Timage).left)then
+          begin
+             if(cap_lin-i=2)and(j-cap_col=2)then
+             begin
+                 for w:=1 to 8 do
+                   for h:=1 to 8 do
+                     begin
+                        c:=c+1;
+                        if(cap_lin-1=w)and(cap_col+1=h)then
+                         if(ocupado_pec_maq[cap_lin-1,cap_col+1]=true)then
+                         begin
+                          for l:=1 to 48 do
+                          begin
+                           if(quadro[w,h].left+centro=peca[l].Left)and(quadro[w,h].top+centro=peca[l].Top)then
+                             begin
+                                 quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                 ocupado_pec_jog[num_quadro_lin,num_quadro_col]:=false;
+                                 peca[l].left:=bevel1.Left+2;
+                                 peca[l].top:=bevel1.Top+2;
+                                 peca_comida[l]:=true;
+                                 quadro_ocupado[w,h]:=false;
+                                 pecas.left:=(sender as Timage).left+centro;
+                                 pecas.top:=(sender as Timage).top+centro;
+                                 quadro_ocupado[lin,col]:=true; //dirá se está com a peça no Timage
+                                 ocupado_pec_jog[lin,col]:=true;
+                                 ocupado_pec_maq[w,h]:=false;
+                                 peca_clicada:=false;
+                                 jog_comer(sender);
+                                 criar_dama(sender);
+                                // if(frmconfig.dois_jogadores=false)then
+                                 jog_maquina(sender);
+                                 contar_jogadas:=contar_jogadas+1;
+                                 break;
+                              end;
+                            end;
+                          end;
+                       end;
+                   end;
+                end;
+            end;
+          end;
+          c:=0;
+       //comer uma peça pela diagonal esquerda
+     for i:=1 to 8 do
+       begin
+        for j:=1 to 8 do
+         begin
+          if(quadro[i,j].top=(sender as Timage).top)and(quadro[i,j].left=(sender as Timage).left)then
+           begin
+             if(cap_lin-i=2)and(cap_col-j=2)then
+             begin
+                 for w:=1 to 8 do
+                   for h:=1 to 8 do
+                     begin
+                       c:=c+1;
+                      if(cap_lin-1=w)and(cap_col-1=h)then
+                       if(ocupado_pec_maq[cap_lin-1,cap_col-1]=true)then
+                         begin
+                           for l:=1 to 48 do
+                            begin
+                             if(quadro[w,h].left+centro=peca[l].Left)and(quadro[w,h].top+centro=peca[l].Top)then
+                              begin
+                                quadro_ocupado[num_quadro_lin,num_quadro_col]:=false;
+                                ocupado_pec_jog[num_quadro_lin,num_quadro_col]:=false;
+                                peca[l].left:=bevel1.Left+2;
+                                peca[l].top:=bevel1.Top+2;
+                                peca_comida[l]:=true;
+                                quadro_ocupado[w,h]:=false;
+                                pecas.left:=(sender as Timage).left+centro;
+                                pecas.top:=(sender as Timage).top+centro;
+                                quadro_ocupado[lin,col]:=true; //dirá se está com a peça no Timage
+                                ocupado_pec_jog[lin,col]:=true;
+                                ocupado_pec_maq[w,h]:=false;
+                                peca_clicada:=false;
+                                jog_comer(sender);
+                                criar_dama(sender);
+                               //if(frmconfig.dois_jogadores=false)then
+                                jog_maquina(sender);
+                                contar_jogadas:=contar_jogadas+1;
+                                 //acrescentado 23/03/2007:
+
+                                break;
+                              end;
+                           end;
+                         end;
+                       end;
+                    end;
+                 end;
+             end;
+          end;
+     //evitar deslocamento de 2 ou + casas na diagonal
+     for i:=1 to 8 do
+       for j:=1 to 8 do
+        begin
+          if(quadro[i,j].top=(sender as Timage).top)and(quadro[i,j].left=(sender as Timage).left)then
+           begin
+             if(cap_lin-i>1)and(j-cap_col>1)or(cap_lin-i>1)and(cap_col-j>1)then
+              begin
+                 peca_clicada:=false;
+                 break;
+              end;
+            end;
+        end;
+    end;
+   end;
+ end;
+ label2.caption:=IntTostr(contar_jogadas);
+end;
+
+procedure Tfrm_principal.ImgpretoMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+    (sender as Timage).cursor:=1;
+end;
+
+procedure Tfrm_principal.ImgJogadorClick(Sender: TObject);
+var i,j,w:integer;
+begin
+    SndPlaySound('som\mover.wav',SND_ASYNC);
+    c:=0;
+    peca_clicada:=true;
+    pecas:=(sender as TImage);//qual peça foi clicada
+     cop_peca:='0';
+    shape1.Visible:=true;
+    shape1.Left:=pecas.left-1;
+    shape1.top:=pecas.top-1;
+    for i:=1 to 8 do
+      begin
+        for j:=1 to 8 do
+        begin
+          c:=c+1;
+         if(quadro[i,j].left+centro=pecas.left)and(quadro[i,j].Top+centro=pecas.top)then
+           begin
+              cap_lin:=i;
+              cap_col:=j;
+              num_quadro_lin:=i;
+              num_quadro_col:=j;
+           end;
+         end;
+     end;
+end;
+
+procedure Tfrm_principal.verificar_assopro(sender:Tobject);
+var i,j,x,y,w,num,wel:integer;pode_comer:array[1..36]of bool;entrou:bool;
+begin
+//verificação para assoprar a peça que não foi movida
+entrou:=false; mesma_peca:=false;
+ for i:=13 to 24 do
+  begin
+   pode_comer[i]:=false;
+  end;
+  for i:=1 to 8 do
+    for j:=1 to 8 do
+      begin
+         for x:=13 to 24 do
+           begin
+              if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].top+centro)then
+               begin
+                  if(ocupado_pec_maq[i-1,j-1])and(quadro_ocupado[i-2,j-2]=false)and(i-2>0)and(j-2>0)then
+                   begin
+                      pode_comer[x]:=true;
+                      entrou:=true;
+                      num:=x;
+                      if(pecas.name=peca[x].Name)then
+                        begin
+                           mesma_peca:=true;
+                        end;
+                   end;
+               end;
+           end;
+      end;
+  for i:=1 to 8 do
+    for j:=1 to 8 do
+      begin
+         for x:=13 to 24 do
+           begin
+              if(peca[x].left=quadro[i,j].left+centro)and(peca[x].top=quadro[i,j].top+centro)then
+               begin
+                  if(ocupado_pec_maq[i-1,j+1])and(quadro_ocupado[i-2,j+2]=false)and(i-2>0)and(j+2<=8)then
+                   begin
+                      pode_comer[x]:=true;
+                       entrou:=true;
+                       num:=x;
+                         if(pecas.name=peca[x].Name)then
+                           begin
+                             mesma_peca:=true;
+                           end;
+                    end;
+               end;
+           end;
+      end;
+if(entrou)then
+ begin
+  for i:=1 to 8 do
+   begin
+    for j:=1 to 8 do
+      begin
+        if(peca[num].left=quadro[i,j].left+centro)and(peca[num].top=quadro[i,j].top+centro)then
+         begin
+           SndPlaySound('som\assoprou.wav',SND_ASYNC);
+           for wel:=1 to 5 do
+            begin
+              if wel mod 2=1 then
+               peca[num].visible:=false
+              else
+               peca[num].visible:=true;
+              delay(300);
+              label21.visible:=true;
+              label21.Caption:='PEÇA ASSOPRADA';
+            end;
+            label21.visible:=false;
+            shape1.visible:=true;
+            shape1.left:=peca[num].left;
+            shape1.top:=peca[num].top;
+            shape1.visible:=false;
+            peca[num].left:=bevel2.Left+2;
+            peca[num].top:=bevel2.top+2;
+            quadro_ocupado[i,j]:=false;
+            ocupado_pec_jog[i,j]:=false;
+            break;
+          end;
+        end;
+     end;
+   end;
+end;
+
+procedure Tfrm_principal.ImgjogadorMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+   (sender as Timage).cursor:=2;
+end;
+
+
+procedure Tfrm_principal.Delay(MSecs: integer);
+var prox_seg : integer;
+begin
+  prox_seg:=GetTickCount;
+  repeat
+     Application.ProcessMessages;
+  until ((GetTickCount-prox_seg) >= LongInt(MSecs));
+end;
+
+procedure Tfrm_principal.SpeedButton4Click(Sender: TObject);
+begin
+ //cria o form
+ Application.CreateForm(TFormSobre,FormSobre);
+ formSobre.BringToFront;
+ AnimateWindow(formSobre.Handle,2000,AW_VER_POSITIVE);
+ formSobre.Show;
+end;
+
+procedure Tfrm_principal.SpeedButton5Click(Sender: TObject);
+begin
+ Application.CreateForm(TFormTopicos,FormTopicos);
+ formTopicos.BringToFront;
+ AnimateWindow(formTopicos.Handle,2000,AW_CENTER);
+ formTopicos.show;
+end;
+procedure Tfrm_principal.SpeedButton3Click(Sender: TObject);
+var wndHandle : THandle;
+//wndClass : array[0..50] of Char;
+begin
+
+{StrPCopy(@wndClass[0],'Shell_TrayWnd');
+wndHandle := FindWindow(@wndClass[0], nil);
+{Mostra a barra de tarefas}
+ //ShowWindow(wndHandle, SW_RESTORE);
+ Close;
+end;
+
+
+
+procedure Tfrm_principal.SpeedButton2MouseMove(Sender: TObject; Shift: TShiftState;
+  X, Y: Integer);
+begin
+ SpeedButton2.hint:='- Cor do tabuleiro'+#13+'- Opções de Jogabilidade'+#13+'- Opções de som'+#13+'- Cor de fundo';
+ speedbutton2.Flat:=false;
+speedbutton2.Font.Color:=frm_principal.Color;
+end;
+
+
+procedure Tfrm_principal.SpeedButton1Click(Sender: TObject);
+var i,j,x,y:integer;
+begin
+r:=0;
+Relogio.Enabled:=true;
+apagarEventoClick(1);
+x:=0;y:=0;
+
+sobrou_peca_jog:=0;
+sobrou_peca:=0;
+peca_clicada:=false;
+contar_jogadas:=0;
+shape1.Visible:=false;
+shape3.Visible:=false;
+j:=0;dama:=0;dama_maq:=0;
+  //frmconfig.Show;
+  for i:=1 to 12 do
+   controle_diagonal[i]:=false;
+  for i:=1 to 8 do
+   begin
+    for j:=1 to 8 do
+     begin
+        quadro_ocupado[i,j]:=false;
+        ocupado_pec_maq[i,j]:=false;
+        ocupado_pec_jog[i,j]:=false;
+        ocupado_dama_maq[i,j]:=false;
+        ocupado_dama_jog[i,j]:=false;
+     end;
+   end;
+   for i:=1 to 8 do
+    begin
+     for j:=1 to 8 do
+      begin
+        if(i mod 2=1)and(j mod 2=0)or(i mod 2=0)and(j mod 2=1)then
+         begin
+           //quadros escuros
+            quadro_ocupado[i,j]:=true;
+         end
+         else
+          if(i<4)then
+           begin
+              x:=x+1;
+              peca[x].Left:=quadro[i,j].Left+centro;
+              peca[x].top:=quadro[i,j].top+centro;
+              quadro_ocupado[i,j]:=true;
+              ocupado_pec_maq[i,j]:=true;
+           end
+            else
+            if(i>5)then
+              begin
+                y:=y+1;
+                peca[y+12].Left:=quadro[i,j].Left+centro;
+                peca[y+12].top:=quadro[i,j].top+centro;
+                quadro_ocupado[i,j]:=true;
+                ocupado_pec_jog[i,j]:=true;
+              end;
+        end;
+    end;
+    for i:=1 to 48 do
+     begin
+      peca[i].Left:=0;
+      peca[i].Top:=0;
+       peca_comida[i]:=false;
+      if(i<=24)then
+       peca[i].Visible:=true;
+      if(i>24)then
+        peca[i].Visible:=false;
+      if(i>36)then
+        dama_criada[i]:=false;
+      if(i>12)and(i<=36)then
+        peca[i].Enabled:=true
+      else
+        peca[i].Enabled:=false;
+     end;
+     formCreate(Sender);
+     if(frmconfig.dois_jogadores)then
+      begin
+       for i:=1 to 48 do
+         peca[i].Enabled:=true;
+      end;
+      x:=0;y:=0;
+
+end;
+
+procedure Tfrm_principal.SpeedButton2Click(Sender: TObject);
+begin
+  frmconfig.showmodal;
+end;
+
+procedure Tfrm_principal.ImgjogmaqClick(Sender: TObject);
+var i,j:integer;
+begin
+   SndPlaySound('\som\mover.wav',SND_ASYNC);
+    c:=0;
+    peca_clicada:=true;
+    pecas:=(sender as TImage);//qual peça foi clicada
+    cop_peca:=copy((sender as TImage).name,6,length((sender as TImage).name));
+    shape1.Visible:=true;
+    shape1.Left:=pecas.left;
+    shape1.top:=pecas.top;
+    for i:=1 to 8 do
+      begin
+        for j:=1 to 8 do
+        begin
+          c:=c+1;
+         if(quadro[i,j].left+centro=pecas.left)and(quadro[i,j].Top+centro=pecas.top)then
+           begin
+              cap_lin:=i;
+              cap_col:=j;
+              num_quadro_lin:=i;
+              num_quadro_col:=j;
+           end;
+         end;
+     end;
+end;
+
+function ArqCarregarDLL(tipo:String;nome:String):HBitmap;
+var hDll, hres,SizeRes: Integer; hMemory: HGLOBAL;  ptrmem: pointer;
+strMem: TMemoryStream;
+imgJpg: TJPEGImage;
+imgResult: TBitMap;
+begin
+      hDll := LoadLibrary('E:\PROJETOS\Damas\CodiFonteDama beta 1.14\DLL\Project1.dll');
+      if (hDLL <> 0) then
+      begin
+          if (tipo = 'bmp') then
+          begin
+              result:= LoadBitmap(hDLL,PChar(nome));
+          end else
+          if (tipo = 'jpg') then
+          begin
+              hres   :=  FindResource(hDll,PChar(nome),RT_RCDATA);
+             SizeRes :=  SizeofResource(hDll , hres);
+             hMemory :=  LoadResource(hDll , hres);
+             ptrmem  :=  LockResource(hMemory);
+             strMem.Size := SizeRes;
+             strMem.Write(ptrmem,SizeRes);
+             strMem.Position:=0;
+
+             //imgJpg.LoadFromStream(strMem);
+             ImgResult.LoadFromStream(strMem);
+             ImgResult.Handle
+
+          end;
+      end;
+      FreeLibrary(hDLL);
+end;
+
+procedure Tfrm_principal.FormCreate(Sender: TObject);
+var i,j,icon,cont_img,cont_peca,col,lin,coluna,linh,imgquad1,imgquad2,x:integer;fundo,copialinha,dirPCHAR:string;
+   hnd: THandle;
+begin
+    Relogio.Enabled:=true;
+    frm_Principal.Caption:= VERSAO;
+    Application.Title:= VERSAO;
+    x:=0; r:=0;
+    dir_inicial:=ExtractFileDir(ParamStr(0));
+    dois_jogadores:=false;
+    DOUBLEBUFFERED:=true;
+    application.HintColor:=clgray;
+
+    ContResol:=ContResol + 1;
+    if ContResol=1 then
+    begin
+        res_ant_larg:= screen.Width;
+        res_ant_alt := screen.Height;
+        hnd:= GetDC( Handle );
+        bitsPorPixel:= GetDeviceCaps( hnd, BITSPIXEL );
+    end;
+videoAlterou:= FALSE;
+if(screen.Width <> 800)and(screen.Height <> 600)or(bitsPorPixel < 16)then
+begin
+  for i:=0 to 100 do
+   begin
+      EnumDisplaySettings(nil,i,Devmode);
+      if(DevMode.dmPelsWidth = 800)and(DevMode.dmPelsHeight = 600)and(devmode.dmBitsPerPel = 16)then
+       begin
+         EnumDisplaySettings(nil,i,Devmode);
+         ChangeDisplaySettings(DevMode,0);
+         videoAlterou:= TRUE;
+         break;
+       end;
+   end;
+end;
+
+if not FileExists(dir_inicial+'\config.dat')then
+begin
+  ShowMessage('Arquivo config.dat não encontrado.O programa então utilizará a configuração padrão');
+
+  assignfile(arq,dir_inicial+'\config.dat');
+  rewrite(arq);
+  writeln(arq,'fundo:Pfundo.jpg');
+  writeln(arq,'imgquad1:0');
+  writeln(arq,'imgquad2:1');
+  closefile(arq);
+
+  image113.Picture.LoadFromFile(dir_inicial+'\imagens\image\Pfundo.jpg');
+  imgquad1:=0;
+  imgquad2:=1;
+end ;
+
+  assignfile(arq,dir_inicial+'\config.dat');
+  reset(arq);
+  while not eof(arq) do
+   begin
+     readln(arq,copialinha);
+     x:= x + 1;
+     case x of
+        1: fundo:= copy(copialinha,pos(':',copialinha)+1,length(copialinha));
+        2: imgquad1:= StrToInt(copy(copialinha,pos(':',copialinha)+1,length(copialinha)));
+        3: imgquad2:= StrToInt(copy(copialinha,pos(':',copialinha)+1,length(copialinha)));
+     end;
+   end;
+  closefile(arq);
+  image113.Picture.LoadFromFile(dir_inicial+'\imagens\image\'+fundo);
+
+if not FileExists(dir_inicial+'\recorde.dat')then
+begin
+  ShowMessage('Arquivo recorde.dat não foi encontrando.');
+  AssignFile(arq,dir_inicial+'\recorde.dat');
+  Rewrite(arq);
+  CloseFile(arq);
+  WinExec(PAnsiChar(ParamStr(0)),SW_SHOWNORMAL);
+  Application.Terminate;
+end;
+contar_jogadas:=0;
+shape1.Visible:=false;
+shape3.Visible:=false;
+j:=0;dama:=0;dama_maq:=0;
+label21.Color:=frm_principal.color;
+
+  for i:= 1 to 48 do
+  begin
+     case i of
+        1..12: controle_diagonal[i]:=false;
+       13..24: peca_jog_assoprada[i]:=false;
+       37..48: dama_criada[i]:=false;
+     end;
+  end;
+  for i:= 1 to 8 do
+  begin
+    for j:= 1 to 8 do
+     begin
+        if(i <> 4)and(i <> 5)then
+        begin
+            quadro_ocupado[i,j]:=true;
+        end;
+     end;
+  end;
+ for i:= 1 to 8 do
+  begin
+   for j:= 1 to 8 do
+    begin
+    comer_pec_jog[i]:=false;
+    if(i >= 1)and(i <= 3)then
+     begin
+        ocupado_pec_maq[i,j]:= true;
+        quadro_ocupado[i,j]:= true;
+        peca_comida[i]:= false;
+     end;
+     if(i >= 6)and(i <= 8)then
+     begin
+        ocupado_pec_jog[i,j]:=true;
+        quadro_ocupado[i,j]:=true;
+        peca_comida[i]:=false;
+     end;
+    end;
+  end;
+  peca_clicada:= false;
+  dirPCHAR:=dir_inicial+'\pecas\cur.cur';
+  Screen.Cursors[1]:= LoadCursorFromFile(PCHAR(dirPCHAR));
+  dirPCHAR:=dir_inicial+'\pecas\mao.cur';
+  Screen.Cursors[2]:= LoadCursorFromFile(Pchar(dirPCHAR));
+  linha:= 0;col:= 0;lin:= 1;cont_peca:= 0;icon:= 0;coluna:= 0;linh:= 1; cont_img:=0;
+  for i:= 0 to componentcount-1 do//irá de 1 até o numero de componentes-1
+   begin
+     if(components[i] is TImage) and (components[i].Name<>'Image113')then //se os componentes do form forem Timage
+      begin
+        cont_img:= cont_img + 1;
+        if(cont_img <= 64)then
+        begin
+           col:= col + 1;
+         if(col = 9)then
+          begin
+             col:= 1;
+             lin:= lin + 1;
+          end;
+         if(lin mod 2 = 1)then
+          begin
+            if(col mod 2 = 1)then
+             begin
+                icon:= icon + 1;
+                quadro[lin,col]:= Timage(components[i]);
+                quadbranco[icon]:= Timage(components[i]);
+                imagelist1.GetBitmap(imgquad1,quadbranco[icon].Picture.Bitmap);
+                //cadastro das posições do quadro branco
+                //As coordenadas referem-se ao centro do quadro
+             end;
+           if(col mod 2 = 0)then
+            begin
+                quadro[lin,col]:=Timage(components[i]);
+                imagelist1.GetBitmap(imgquad2,quadro[lin,col].Picture.Bitmap);
+                quadro_ocupado[lin,col]:=true;
+                //ocupado_quad_preto[lin,col]:=true;
+            end;
+        end;
+       if(lin mod 2 = 0)then
+       begin
+         if(col mod 2 = 1)then
+         begin
+             quadro[lin,col]:= Timage(components[i]);
+             imagelist1.GetBitmap(imgquad2,quadro[lin,col].Picture.Bitmap);
+             quadro_ocupado[lin,col]:= true;
+             //ocupado_quad_preto[lin,col]:=true;
+         end;
+        if(col mod 2 = 0)then
+          begin
+               icon:= icon + 1;
+                quadro[lin,col]:= Timage(components[i]);
+               quadbranco[icon]:= Timage(components[i]);
+               imagelist1.GetBitmap(imgquad1,quadbranco[icon].Picture.Bitmap);
+           end;
+         end;
+       end
+         else
+          begin
+            cont_peca:= cont_peca + 1;   //contador das pecas
+            peca[cont_peca]:= Timage(components[i]);
+            if(cont_peca <= 12)then
+             begin
+                //do image65 ao image76
+                peca[cont_peca].Picture.LoadFromFile(dir_inicial+'\pecas\peca_branca.bmp');
+               // peca[cont_peca].Picture.Bitmap.Handle := ArqCarregarDLL('bmp','peca_branca');
+                peca[cont_peca].Left:= quadbranco[cont_peca].Left + centro;
+                peca[cont_peca].Top:=  quadbranco[cont_peca].Top  + centro;
+                peca[cont_peca].Transparent:= true;
+            end
+             else
+              if(cont_peca > 12)and(cont_peca <= 24)then
+              begin
+                //do image77 ao image88
+                peca[cont_peca].Picture.LoadFromFile(dir_inicial+'\pecas\peca_preta.bmp');
+                //peca[cont_peca].Picture.Bitmap.Handle := ArqCarregarDLL('bmp','peca_preta');
+                peca[cont_peca].Left:= quadbranco[cont_peca+8].Left + centro;
+                peca[cont_peca].Top:=  quadbranco[cont_peca+8].Top  + centro;
+                peca[cont_peca].Transparent:= true;
+              end
+              else
+              begin
+               if(cont_peca > 24)and(cont_peca <= 36)then
+                 begin
+                   //do image89 ao image100
+                   peca[cont_peca].Picture.LoadFromFile(dir_inicial+'\pecas\dama_preta.bmp');
+                   //peca[cont_peca].Picture.Bitmap.Handle := ArqCarregarDLL('bmp','dama_preta');
+                   peca[cont_peca].Transparent:=true;
+                   peca[cont_peca].Visible:=false;
+                 end;
+               if(cont_peca > 36)and(cont_peca <= 48)then
+                 begin
+                    //do image101 ao image112
+                    peca[cont_peca].Picture.LoadFromFile(dir_inicial+'\pecas\dama_branca.bmp');
+                    //peca[cont_peca].Picture.Bitmap.Handle := ArqCarregarDLL('bmp','peca_branca');
+                    peca[cont_peca].Transparent:=true;
+                    peca[cont_peca].Visible:=false;
+                 end;
+
+              end;
+          end;
+     end;
+  end;
+  for i:= 1 to 48 do
+   begin
+     if(i <= 12)or(i > 36)then
+         peca[i].Enabled:= false;
+   end;
+
+end;
+procedure Tfrm_principal.carregar_cor_quadros(sender:Tobject);
+var lin,col:integer;
+begin
+       for lin:= 1 to 8 do
+        begin
+         for col:= 1 to 8 do
+         begin
+          if(lin mod 2 = 1)then
+           begin
+            if(col mod 2 = 1)then
+             begin
+                quadro[lin,col].Picture.Bitmap:=nil;
+                imagelist1.GetBitmap(frmconfig.i,quadro[lin,col].Picture.Bitmap);
+             end;
+            if(col mod 2 = 0)then
+            begin
+                 quadro[lin,col].Picture.Bitmap:=nil;
+                imagelist1.GetBitmap(frmconfig.j,quadro[lin,col].Picture.Bitmap);
+            end;
+        end;
+       if(lin mod 2 = 0)then
+       begin
+         if(col mod 2 = 1)then
+         begin
+            quadro[lin,col].Picture.Bitmap:=nil;
+             imagelist1.GetBitmap(frmconfig.j,quadro[lin,col].Picture.Bitmap);
+         end;
+        if(col mod 2 = 0)then
+          begin
+               quadro[lin,col].Picture.Bitmap:=nil;
+               imagelist1.GetBitmap(frmconfig.i,quadro[lin,col].Picture.Bitmap);
+           end;
+         end;
+       end;
+   end;
+end;
+procedure Tfrm_principal.SpeedButton6Click(Sender: TObject);
+begin
+   form1.showmodal;
+end;
+procedure Tfrm_principal.FormMouseMove(Sender: TObject; Shift: TShiftState;
+  X, Y: Integer);
+var i: Byte;
+begin
+    for i:=1 to 6 do
+     begin
+              spdbotao[i].Flat:= true;
+        spdbotao[i].Font.Color:= clwhite;
+     end;
+end;
+
+procedure Tfrm_principal.SpeedButtonMouseMove(Sender: TObject;
+  Shift: TShiftState; X, Y: Integer);
+var i: Byte;
+begin
+ for i:= 1 to 6 do
+ begin
+   if (sender as Tspeedbutton).Name = spdbotao[i].name then
+    begin
+            spdbotao[i].Flat:= false;
+      spdbotao[i].Font.Color:= clnone;
+    end
+   else
+      begin
+          spdbotao[i].Flat:=true;
+          spdbotao[i].Font.Color:=clblue;
+      end;
+ end;
+end;
+
+
+procedure Tfrm_principal.Image113MouseMove(Sender: TObject;
+  Shift: TShiftState; X, Y: Integer);
+var i:Byte;
+begin
+  for i:=1 to 6 do
+   begin
+      spdbotao[i].Flat:=true;
+      spdbotao[i].Font.Color:=clblue;
+   end;
+
+end;
+
+procedure Tfrm_principal.apagarEventoClick(op:byte);
+var i: byte;
+begin
+    for i:= 12 to 36 do
+    begin
+          if(op = 0)then //apaga
+               peca[i].OnClick := nil
+        else
+          if(op = 1)then // recompoe
+               peca[i].onClick := ImgJogadorClick;
+    end;
+end;
+
+procedure Tfrm_principal.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+  var i: Byte;
+begin
+  if(Application.MessageBox('Finalizar o programa?','Atencão',MB_ICONEXCLAMATION+MB_YESNO) = IDYES) then
+  begin
+  if( videoAlterou )then
+   begin
+     for i:= 0 to 255 do
+     begin
+       EnumDisplaySettings(nil,i,Devmode);
+       if(DevMode.dmPelsWidth=res_ant_larg)and(DevMode.dmPelsHeight=res_ant_alt)and(devmode.dmBitsPerPel=bitsPorPixel)then
+        begin
+          EnumDisplaySettings(nil,i,Devmode);
+          ChangeDisplaySettings(DevMode,0);
+          break;
+        end;
+     end;
+   end;
+  end else CanClose := False;
+end;
+
+procedure Tfrm_principal.RelogioTimer(Sender: TObject);
+begin
+    inc(r);
+
+end;
+
+end.
+
+

@@ -1,0 +1,117 @@
+object Frm_salva_recorde: TFrm_salva_recorde
+  Left = 237
+  Top = 257
+  Cursor = crHandPoint
+  AutoSize = True
+  BorderIcons = []
+  Caption = 'Novo Recorde'
+  ClientHeight = 185
+  ClientWidth = 425
+  Color = clMedGray
+  Font.Charset = ANSI_CHARSET
+  Font.Color = clWhite
+  Font.Height = -13
+  Font.Name = 'Arial'
+  Font.Style = [fsBold]
+  OldCreateOrder = False
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 16
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 425
+    Height = 185
+    Color = clMedGray
+    TabOrder = 0
+    object GroupBox1: TGroupBox
+      Left = 48
+      Top = 24
+      Width = 345
+      Height = 121
+      Caption = 'GRAVAR ?'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -12
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+      object SpeedButton1: TSpeedButton
+        Left = 136
+        Top = 67
+        Width = 65
+        Height = 22
+        Cursor = crHandPoint
+        Caption = 'GRAVAR'
+        Flat = True
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = SpeedButton1Click
+      end
+      object SpeedButton2: TSpeedButton
+        Left = 212
+        Top = 67
+        Width = 59
+        Height = 22
+        Cursor = crHandPoint
+        Caption = 'SAIR'
+        Flat = True
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = SpeedButton2Click
+      end
+      object Label1: TLabel
+        Left = 37
+        Top = 33
+        Width = 42
+        Height = 16
+        Caption = 'NOME:'
+        Color = clMedGray
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object Label2: TLabel
+        Left = 89
+        Top = 20
+        Width = 107
+        Height = 11
+        Caption = 'No m'#237'nimo 3 caracteres'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -9
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Edit1: TEdit
+        Left = 88
+        Top = 29
+        Width = 231
+        Height = 22
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        MaxLength = 20
+        ParentFont = False
+        TabOrder = 0
+        OnKeyPress = Edit1KeyPress
+      end
+    end
+  end
+end

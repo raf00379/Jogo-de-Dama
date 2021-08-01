@@ -1,0 +1,79 @@
+unit Sobre;
+
+interface
+
+uses Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
+  Buttons, ExtCtrls, ComCtrls, XPMan;
+
+type
+  TformSobre = class(TForm)
+    Panel1: TPanel;
+    Version: TLabel;
+    Copyright: TLabel;
+    Label1: TLabel;
+    BitBtn1: TBitBtn;
+    Label2: TLabel;
+    ProgressBar1: TProgressBar;
+    Timer1: TTimer;
+    Label3: TLabel;
+    Image1: TImage;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formSobre: TformSobre;
+
+implementation
+
+{$R *.DFM}
+
+
+procedure TformSobre.BitBtn1Click(Sender: TObject);
+begin
+ if(messagebox(application.Handle,'Certeza?','Welson, como vai a Samanta?',36)=6)then
+   if(messagebox(application.Handle,'Absoluta?','Atenção',36)=6)then
+     begin
+      bitbtn1.Visible:=false;
+      progressbar1.Visible:=true;
+      label3.Visible:=true;
+      timer1.Enabled:=true;
+     end
+      else
+        begin
+          messagebox(application.Handle,'Mesmo Assim vou fechar o formulário!!','Rex e a Grace,hein??',32);
+          FormSobre.Close;
+        end;
+end;
+
+procedure TformSobre.FormCreate(Sender: TObject);
+begin
+   progressbar1.Visible:=false;
+end;
+
+procedure TformSobre.Timer1Timer(Sender: TObject);
+begin
+   progressbar1.Position:=progressbar1.Position+5;
+   if(progressbar1.Position=100)then
+     FormSobre.Close
+end;
+
+procedure TformSobre.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ timer1.Enabled:=false;
+end;
+
+procedure TformSobre.FormActivate(Sender: TObject);
+begin
+  version.Caption:=application.title;
+end;
+
+end.
+
