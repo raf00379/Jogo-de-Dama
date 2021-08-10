@@ -1,3 +1,3 @@
 # Jogo-de-Dama
 
-Só baixar as pastas, juntas com executável.
+Só baixar as pastas, juntamente com o executável.
